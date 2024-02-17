@@ -24,7 +24,7 @@ li:hover {
   transition: 0.5s;
 }
 
-button {
+.button {
   color: white;
   background-color: rgb(82, 102, 102);
   border: none;
