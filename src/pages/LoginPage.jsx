@@ -1,12 +1,17 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
-import axios from "axios";
+/* eslint-disable no-unused-vars */
+// /* eslint-disable no-unused-vars */
+// /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
 import Home from "./Home";
 import axiosInstance from "../api/axios"
+import { useDispatch } from "react-redux";
 function Login() {
   const [err, setError] = useState("");
   const [home, setHome] = useState(false);
+
+  const dispatch = useDispatch()
+  
   // Submiting Login Data
   const loginSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +28,7 @@ function Login() {
     if (response.status === 200) {
       const jwtToken = response.data.token
       const token =  localStorage.setItem("jwtToken",jwtToken)
+      dispatch(jwtToken)
       setHome(true);
     }
   };
