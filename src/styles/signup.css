@@ -21,15 +21,3 @@ input {
   border: none;
   border-radius: 10px;
 }
-button {
-  padding: 10px;
-  width: 200px;
-  border: none;
-  border-radius: 10px;
-  background-color: rgb(57, 88, 96);
-  color: white;
-}
-button:hover{
-    background-color: rgb(39, 66, 72);
-    transition: .5s ease-in-out;
-}

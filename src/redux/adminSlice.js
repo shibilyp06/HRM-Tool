@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const adminSlice = createSlice({
   name: "auth",
-  
   initialState: {
     token: null,
   },

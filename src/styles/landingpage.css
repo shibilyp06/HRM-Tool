@@ -32,11 +32,6 @@ li:hover {
   width: 100px;
   height: 40px;
 }
-button:hover {
-  background-color: black;
-  color: white;
-  transition: 0.9s;
-}
 .body {
   padding: 50px;
   display: flex;

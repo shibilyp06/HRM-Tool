@@ -3,9 +3,10 @@
 // /* eslint-disable no-unused-vars */
 // /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
-import Home from "./Home";
+import Home from "./Admin/AdminHome";
 import axiosInstance from "../api/axios"
 import { useDispatch } from "react-redux";
+import { setToken } from "../redux/adminSlice";
 function Login() {
   const [err, setError] = useState("");
   const [home, setHome] = useState(false);
@@ -28,7 +29,7 @@ function Login() {
     if (response.status === 200) {
       const jwtToken = response.data.token
       const token =  localStorage.setItem("jwtToken",jwtToken)
-      dispatch(jwtToken)
+      dispatch(setToken(jwtToken))
       setHome(true);
     }
   };
