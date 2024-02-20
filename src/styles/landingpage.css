@@ -19,11 +19,6 @@
   gap: 60px;
   font-size: 25px;
 }
-li:hover {
-  color: white;
-  transition: 0.5s;
-}
-
 .button {
   color: white;
   background-color: rgb(82, 102, 102);

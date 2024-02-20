@@ -1,13 +1,14 @@
-import AdminHeader from "../../components/AdminHeader";
+import AdminHeader from "../../components/Admin/AdminHeader";
+import StaffPage from "../../components/Admin/StaffPage";
 
-function Home() {
+function AdminHome() {
   return (
     <>
-    <div>
       <AdminHeader/>
-    </div>
+      <StaffPage/>
+
     </>
   );
 }
 
-export default Home;
+export default AdminHome;

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
-import GetOTPbutton from "../components/GetOTPbutton";
+import GetOTPbutton from "../components/Common/GetOTPbutton";
 import "../styles/OTP.css";
 
 function OTPVerification({ submitAction }) {

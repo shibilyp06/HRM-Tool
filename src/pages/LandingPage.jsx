@@ -2,11 +2,12 @@
 import "../styles/landingpage.css";
 import { Link } from "react-router-dom";
 import image from "../assets/images/office.webp";
+import StaffPage from "../components/Admin/StaffPage";
 function LandingPage() {
 
   return (
     <>
-      <div className="landingPage">
+      {/* <div className="landingPage">
         <div className="header">
           <h2
             style={{
@@ -36,7 +37,7 @@ function LandingPage() {
             <button>Register</button>
           </Link>
         </center>
-      </div>
+      </div> */}
     </>
   );
 }

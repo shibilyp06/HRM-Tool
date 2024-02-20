@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import axiosInstance from "../api/axios";
+import axiosInstance from "../../api/axios";
 import { useState } from "react";
 import VerifyButton from "./VerifyButton";
 
