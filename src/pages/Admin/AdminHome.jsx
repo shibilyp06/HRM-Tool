@@ -1,5 +1,5 @@
 import AdminHeader from "../../components/Admin/AdminHeader";
-import StaffPage from "../../components/Admin/StaffPage";
+import StaffPage from "./StaffPage";
 
 function AdminHome() {
   return (
