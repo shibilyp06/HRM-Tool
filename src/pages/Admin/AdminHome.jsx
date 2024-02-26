@@ -1,11 +1,12 @@
 import AdminHeader from "../../components/Admin/AdminHeader";
-import StaffPage from "./StaffPage";
+import Home from "../../components/Admin/Home";
+// import ProfileCard from "../../components/Admin/ProfileCard";
 
 function AdminHome() {
   return (
     <>
-      <AdminHeader/>
-      <StaffPage/>
+      <div><AdminHeader/></div>
+      <div><Home/></div>
 
     </>
   );
