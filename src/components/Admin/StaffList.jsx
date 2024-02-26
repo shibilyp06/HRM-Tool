@@ -9,12 +9,16 @@ const StaffList = () => {
   const [staff, setStaff] = useState(null);
   useEffect(() => {
     const fetchStaff = async () => {
-      const response = await axiosInstance.get("/admin/getStaff");
-      const staffList = response.data;
-      setStaffList(staffList.allStaff);
+      try {
+        const response = await axiosInstance.get("/admin/getStaff");
+        const staffList = response.data;
+        setStaffList(staffList.allStaff);
+      } catch (err) {
+        console.error(err);
+      }
     };
     fetchStaff();
-  }, []);
+  }, [staff]);
   const deleteStaff = async (Id) => {
     const updatedList = staffList.filter((staff) => {
       return staff._id !== Id;
@@ -22,7 +26,11 @@ const StaffList = () => {
     setStaffList(updatedList);
   };
   const editStaff = async (Id) => {
-    await axiosInstance.get(`/admin/editStaff/:${Id}`);
+    try {
+      await axiosInstance.get(`/admin/editStaff/:${Id}`);
+    } catch (err) {
+      console.error(err);
+    }
   };
   const showModal = (staffMember) => {
     setStaff(staffMember);
@@ -30,9 +38,16 @@ const StaffList = () => {
   const closeModal = () => {
     setStaff(null);
   };
+  if (staff) {
+    document.body.classList.add("active-modl");
+  } else {
+    document.body.classList.remove("active-modl");
+  }
 
   return (
     <div className="container mx-auto ">
+      {staff && <ProfileCard data={staff} closeModal={closeModal} />}
+
       <h2 className="text-2xl font-bold mb-4">Staff List</h2>
       <div className="flex justify-end items-center m-5">
         {" "}
@@ -62,7 +77,6 @@ const StaffList = () => {
             </div>
           </div>
         ))}
-        {staff && <ProfileCard data={staff} closeModal={closeModal} />}
       </div>
     </div>
   );

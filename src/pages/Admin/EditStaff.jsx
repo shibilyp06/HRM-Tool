@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
-
+import axiosInstance from "../../api/axios";
 function EditStaff() {
   const [error, setError] = useState("");
   useEffect(() => {
     const fetchStaff = async () => {
-      //    const
+      try {
+        const response = await axiosInstance.put("/admin/editStaff");
+        const editingStaff = response.data.editingStaff;
+        console.log(editingStaff, "editi");
+      } catch (err) {
+        console.error(err, "from err");
+      }
     };
     fetchStaff();
   }, []);

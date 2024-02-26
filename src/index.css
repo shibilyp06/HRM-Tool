@@ -6,3 +6,6 @@ button:hover,
 a:hover {
   transition: 0.6s ease-in-out;
 }
+body.active-modl{
+  overflow-y: hidden;
+}
