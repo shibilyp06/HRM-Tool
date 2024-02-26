@@ -1,22 +1,25 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../api/axios";
 const ProfileCard = ({ data, closeModal }) => {
   const navigate = useNavigate();
   const deleteStaff = async (Id) => {
-    try{
-
+    try {
       const response = await axiosInstance.post(`/admin/deleteStaff/${Id}`);
       closeModal();
-    }catch(err){
-      console.error(err)
+    } catch (err) {
+      console.error(err);
     }
   };
-  const editStaff = async (Id) => {
+  const editStaff = async (_id) => {
     try {
-      const response = await axiosInstance.put(`/admin/editStaff/${Id}`);
-      navigate("/admin/editStaff");
+      
+      // const response = await axiosInstance.put(`/admin/editStaff/${Id}`);
+      // const editingStaff = response.data.editingStaff;
+      // console.log(editingStaff, "ish");
+      navigate(`/admin/staffEdit/${_id}`);
     } catch (err) {
       console.error(err);
     }

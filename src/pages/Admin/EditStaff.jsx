@@ -1,13 +1,18 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
+import { useParams } from "react-router-dom";
 function EditStaff() {
   const [error, setError] = useState("");
+  const [staff,setStaff] = useState({})
+  const { Id } = useParams();
+
   useEffect(() => {
     const fetchStaff = async () => {
       try {
-        const response = await axiosInstance.put("/admin/editStaff");
+        const response = await axiosInstance.put(`/admin/editStaff/${Id}`);
         const editingStaff = response.data.editingStaff;
-        console.log(editingStaff, "editi");
+        setStaff(editingStaff)
       } catch (err) {
         console.error(err, "from err");
       }
@@ -16,7 +21,14 @@ function EditStaff() {
   }, []);
 
   const getData = () => {};
-  const handleSubmit = () => {};
+  const handleSubmit = async() => {
+
+    try{
+      const response = await axiosInstance.
+    }catch(err){
+      console.error(err)
+    }
+  };
   return (
     <div className="bg-black text-white min-h-screen flex flex-col justify-center items-center">
       <h1 className="text-3xl font-bold mb-8">Update Staff</h1>
@@ -28,6 +40,7 @@ function EditStaff() {
               type="text"
               id="name"
               name="name"
+              defaultValue={staff.name}
               required
               className="px-4 py-2 rounded-md bg-gray-700 text-white"
               placeholder="Enter name"
@@ -40,6 +53,7 @@ function EditStaff() {
               type="text"
               id="email"
               name="email"
+              defaultValue={staff.email}
               required
               className="px-4 py-2 rounded-md bg-gray-700 text-white"
               placeholder="Enter Email"
@@ -52,6 +66,7 @@ function EditStaff() {
               type="text"
               id="position"
               name="position"
+              defaultValue={staff.position}
               required
               className="px-4 py-2 rounded-md bg-gray-700 text-white"
               placeholder="Enter position"
@@ -64,6 +79,7 @@ function EditStaff() {
               type="date"
               id="dob"
               name="dob"
+              defaultValue={staff.dob}
               required
               className="px-4 py-2 rounded-md bg-gray-700 text-white"
               onChange={getData}
@@ -75,6 +91,7 @@ function EditStaff() {
               type="tel"
               id="phoneNumber"
               name="phoneNumber"
+              defaultValue={staff.phoneNumber}
               className="px-4 py-2 rounded-md bg-gray-700 text-white"
               placeholder="Enter phone number"
               required

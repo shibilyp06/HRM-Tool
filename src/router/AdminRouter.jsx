@@ -15,7 +15,7 @@ function AdminRouter() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/staffInfo" element={<ShowStaff />}></Route>
         <Route path="/addStaff" element={<AddStaff />}></Route>
-        <Route path="/editStaff" element={<EditStaff />}></Route>
+        <Route path="/staffEdit/:Id" element={<EditStaff />}></Route>
       </Routes>
     </>
   );

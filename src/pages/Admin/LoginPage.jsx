@@ -34,12 +34,16 @@ function Login() {
     }
     //   return setError("Enter valid data");
     // }
-    const response = await axiosInstance.post("/admin/loginPost", loginData);
-    if (response.status === 200) {
-      const jwtToken = response.data.token;
-      const token = localStorage.setItem("jwtToken", jwtToken);
-      dispatch(setToken(jwtToken));
-      navigate("/admin/Home");
+    try {
+      const response = await axiosInstance.post("/admin/loginPost", loginData);
+      if (response.status === 200) {
+        const jwtToken = response.data.token;
+        const token = localStorage.setItem("jwtToken", jwtToken);
+        dispatch(setToken(jwtToken));
+        navigate("/admin/Home");
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
   return (
