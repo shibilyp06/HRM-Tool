@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import AdminHome from "../pages/Admin/AdminHome";
 import AddStaff from "../components/Admin/AddStaff";
-import EditStaff from "../pages/Admin/EditStaff";
 import LandingPage from "../pages/Common/LandingPage";
 import ShowStaff from "../pages/Admin/ShowStaff";
+import EditStaff from "../components/Admin/EditStaff";
 
 function AdminRouter() {
   return (

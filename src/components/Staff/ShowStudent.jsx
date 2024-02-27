@@ -1,48 +1,58 @@
 /* eslint-disable no-unused-vars */
-// /* eslint-disable no-unused-vars */
-
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
-import ProfileCard from "./ProfileCard";
+import { Link } from "react-router-dom";
+
 const StaffList = () => {
   const [staffList, setStaffList] = useState([]);
   const [staff, setStaff] = useState(null);
+
   useEffect(() => {
     const fetchStaff = async () => {
-      try {
-        const response = await axiosInstance.get("/admin/getStaff");
-        const staffList = response.data;
-        setStaffList(staffList.allStaff);
-      } catch (err) {
-        console.error(err);
-      }
+    //   try {
+    //     const response = await axiosInstance.get("/admin/getStaff");
+    //     const staffList = response.data;
+    //     setStaffList(staffList.allStaff);
+    //   } catch (err) {
+    //     console.error(err);
+    //   }
     };
     fetchStaff();
   }, [staff]);
-
   const showModal = (staffMember) => {
     setStaff(staffMember);
   };
+
   const closeModal = () => {
     setStaff(null);
   };
-  if (staff) {
-    document.body.classList.add("active-modl");
-  } else {
-    document.body.classList.remove("active-modl");
-  }
+
+  // You cannot access document.body directly in a functional component
+  useEffect(() => {
+    if (staff) {
+      document.body.classList.add("active-modl");
+    } else {
+      document.body.classList.remove("active-modl");
+    }
+    // Cleanup function to remove the class when component unmounts or when staff is null
+    return () => {
+      document.body.classList.remove("active-modl");
+    };
+  }, [staff]);
 
   return (
     <div className="container mx-auto ">
-    {staff && <ProfileCard data={staff} closeModal={closeModal} />}
+      {/* {staff && <ProfileCard data={staff} closeModal={closeModal} />} */}
 
-      <h2 className="text-2xl font-bold mb-4">Staff List</h2>
+      <h2 className="text-2xl font-bold mb-4">Student List</h2>
       <div className="flex justify-end items-center m-5">
         {" "}
+        <Link to={'/staff/addStudent'}>
         <button className="bg-blue-400 text-white px-2 py-2 rounded-lg hover:bg-blue-600">
           {" "}
-          Add Staff
+          Add Student
         </button>
+        </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {staffList.map((staffMember, index) => (

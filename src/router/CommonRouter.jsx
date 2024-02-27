@@ -8,7 +8,6 @@ function CommonRouter() {
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="/login" element={<Login />}></Route>
-
       </Routes>
     </>
   );

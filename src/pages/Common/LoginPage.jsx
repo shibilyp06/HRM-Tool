@@ -8,7 +8,6 @@ function Login() {
   const [err, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const roles = ["Admin", "Staff", "Student"]; // Define roles array
 
   const loginSubmit = async (e) => {
@@ -35,10 +34,10 @@ function Login() {
         dispatch(setToken(jwtToken));
         if (response.data.role == "Admin") {
           navigate("/admin/Home");
-        } else if (response.data.role == "satff") {
+        } else if (response.data.role == "Staff") {
           navigate("/staff/Home");
         } else if (response.data.role == "Student") {
-          navigate("/studentHome");
+          navigate("/student/Home");
         }
       }
     } catch (err) {
@@ -71,8 +70,8 @@ function Login() {
                         onClick={() => setError("")}
                         id="email"
                         name="email"
-                        type="text"
-                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
+                        type="email"
+                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-green-500"
                         placeholder="Email address"
                       />
                       <label
@@ -89,7 +88,7 @@ function Login() {
                         name="password"
                         type="password"
                         onClick={() => setError("")}
-                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
+                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-green-500"
                         placeholder="Password"
                       />
                       <label
@@ -103,7 +102,7 @@ function Login() {
                       <select
                         id="role"
                         name="role"
-                        className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
+                        className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-green-500"
                       >
                         <option value="">Select Role</option>
                         {roles.map((role, index) => (
