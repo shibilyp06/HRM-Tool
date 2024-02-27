@@ -15,7 +15,6 @@ const ProfileCard = ({ data, closeModal }) => {
   };
   const editStaff = async (_id) => {
     try {
-      
       // const response = await axiosInstance.put(`/admin/editStaff/${Id}`);
       // const editingStaff = response.data.editingStaff;
       // console.log(editingStaff, "ish");

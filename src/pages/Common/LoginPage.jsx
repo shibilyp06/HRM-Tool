@@ -1,7 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable no-unused-vars */
-// /* eslint-disable no-unused-vars */
-// /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
 import axiosInstance from "../../api/axios";
 import { useDispatch } from "react-redux";
@@ -13,39 +9,47 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Submiting Login Data
+  const roles = ["Admin", "Staff", "Student"]; // Define roles array
+
   const loginSubmit = async (e) => {
     e.preventDefault();
-    // Collecting data from user
+
     const loginData = {
       email: e.target.elements.email.value,
       password: e.target.elements.password.value,
+      role: e.target.elements.role.value, // Get selected role from dropdown
     };
-    const emailRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-    // Validating email regex
-    // const testEmail = emailRegex.test(loginData.email);
-    // console.log(testEmail);
-    // Posting data to backend
-
-    // if (!testEmail) {
-    if (loginData.email === "" && loginData.password === "") {
-      return setError(" Fill your form");
+    if (
+      loginData.email === "" ||
+      loginData.password === "" ||
+      loginData.role === ""
+    ) {
+      return setError("Fill in all fields");
     }
-    //   return setError("Enter valid data");
-    // }
     try {
-      const response = await axiosInstance.post("/admin/loginPost", loginData);
+      const response = await axiosInstance.post("/loginPost", loginData);
+
       if (response.status === 200) {
         const jwtToken = response.data.token;
-        const token = localStorage.setItem("jwtToken", jwtToken);
+        localStorage.setItem("jwtToken", jwtToken);
         dispatch(setToken(jwtToken));
-        navigate("/admin/Home");
+        if (response.data.role == "Admin") {
+          navigate("/admin/Home");
+        } else if (response.data.role == "satff") {
+          navigate("/staff/Home");
+        } else if (response.data.role == "Student") {
+          navigate("/studentHome");
+        }
       }
     } catch (err) {
-      console.error(err);
+      if (err.response.status === 404) {
+        setError(err.response.data.err);
+      } else if (err.response.status === 401) {
+        setError(err.response.data.err);
+      }
     }
   };
+
   return (
     <>
       <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
@@ -64,13 +68,11 @@ function Login() {
                     <div className="relative">
                       <input
                         autoComplete="off"
-                        onClick={() => {
-                          setError("");
-                        }}
+                        onClick={() => setError("")}
                         id="email"
                         name="email"
                         type="text"
-                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
                         placeholder="Email address"
                       />
                       <label
@@ -86,10 +88,8 @@ function Login() {
                         id="password"
                         name="password"
                         type="password"
-                        onClick={() => {
-                          setError("");
-                        }}
-                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                        onClick={() => setError("")}
+                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
                         placeholder="Password"
                       />
                       <label
@@ -99,11 +99,25 @@ function Login() {
                         Password
                       </label>
                     </div>
-                    <p className="text-red-600 text-[16px] font-normal ">
+                    <div className="relative">
+                      <select
+                        id="role"
+                        name="role"
+                        className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-rose-600"
+                      >
+                        <option value="">Select Role</option>
+                        {roles.map((role, index) => (
+                          <option key={index} value={role}>
+                            {role}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <p className="text-red-600 text-[16px] font-normal">
                       {err}
                     </p>
                     <div className="relative">
-                      <button className="bg-blue-500  text-white rounded-md px-2 py-1">
+                      <button className="bg-blue-500 text-white rounded-md px-2 py-1">
                         Submit
                       </button>
                     </div>

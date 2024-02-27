@@ -4,7 +4,7 @@ import axiosInstance from "../../api/axios";
 import { useParams } from "react-router-dom";
 function EditStaff() {
   const [error, setError] = useState("");
-  const [staff,setStaff] = useState({})
+  const [staff, setStaff] = useState({});
   const { Id } = useParams();
 
   useEffect(() => {
@@ -12,7 +12,7 @@ function EditStaff() {
       try {
         const response = await axiosInstance.put(`/admin/editStaff/${Id}`);
         const editingStaff = response.data.editingStaff;
-        setStaff(editingStaff)
+        setStaff(editingStaff);
       } catch (err) {
         console.error(err, "from err");
       }
@@ -20,13 +20,23 @@ function EditStaff() {
     fetchStaff();
   }, []);
 
-  const getData = () => {};
-  const handleSubmit = async() => {
-
-    try{
-      const response = await axiosInstance.
-    }catch(err){
-      console.error(err)
+  const handleSubmit = async (e) => {
+    try {
+    e.preventDefault();
+    const updatedData = {
+      name: e.target.elements.name.value,
+      email: e.target.elements.email.value,
+      position: e.target.elements.position.value,
+      dob: e.target.elements.dob.value,
+      phoneNumber: e.target.elements.phoneNumber.value,
+    };
+    console.log(updatedData,"updat");
+      const response = await axiosInstance.put(
+        "/admin/updateStaff",
+        updatedData
+      );
+    } catch (err) {
+      console.error(err);
     }
   };
   return (
@@ -44,7 +54,6 @@ function EditStaff() {
               required
               className="px-4 py-2 rounded-md bg-gray-700 text-white"
               placeholder="Enter name"
-              onChange={getData}
             />
           </div>
           <div className="flex flex-col">
@@ -57,7 +66,6 @@ function EditStaff() {
               required
               className="px-4 py-2 rounded-md bg-gray-700 text-white"
               placeholder="Enter Email"
-              onChange={getData}
             />
           </div>
           <div className="flex flex-col">
@@ -70,7 +78,6 @@ function EditStaff() {
               required
               className="px-4 py-2 rounded-md bg-gray-700 text-white"
               placeholder="Enter position"
-              onChange={getData}
             />
           </div>
           <div className="flex flex-col">
@@ -82,7 +89,6 @@ function EditStaff() {
               defaultValue={staff.dob}
               required
               className="px-4 py-2 rounded-md bg-gray-700 text-white"
-              onChange={getData}
             />
           </div>
           <div className="flex flex-col">
@@ -95,7 +101,6 @@ function EditStaff() {
               className="px-4 py-2 rounded-md bg-gray-700 text-white"
               placeholder="Enter phone number"
               required
-              onChange={getData}
             />
           </div>
           <p className="text-red-600 ">{error} </p>
