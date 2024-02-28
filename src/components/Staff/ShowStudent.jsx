@@ -2,71 +2,72 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
 import { Link } from "react-router-dom";
+import StudentCard from "./StudentCard";
 
 const StaffList = () => {
-  const [staffList, setStaffList] = useState([]);
-  const [staff, setStaff] = useState(null);
+  const [students, setStudents] = useState([]);
+    const [student, setStudent] = useState(null);
 
   useEffect(() => {
     const fetchStaff = async () => {
-    //   try {
-    //     const response = await axiosInstance.get("/admin/getStaff");
-    //     const staffList = response.data;
-    //     setStaffList(staffList.allStaff);
-    //   } catch (err) {
-    //     console.error(err);
-    //   }
+      try {
+        const response = await axiosInstance.get("/staff/getStudents");
+        const students = response.data.students;
+        console.log(students , " lpopo");
+        setStudents(students);
+      } catch (err) {
+        console.error(err);
+      }
     };
     fetchStaff();
-  }, [staff]);
-  const showModal = (staffMember) => {
-    setStaff(staffMember);
-  };
-
-  const closeModal = () => {
-    setStaff(null);
-  };
-
-  // You cannot access document.body directly in a functional component
-  useEffect(() => {
-    if (staff) {
-      document.body.classList.add("active-modl");
-    } else {
-      document.body.classList.remove("active-modl");
-    }
-    // Cleanup function to remove the class when component unmounts or when staff is null
-    return () => {
-      document.body.classList.remove("active-modl");
+  }, [student]);
+    const showModal = (student) => {
+      setStudent(student);
     };
-  }, [staff]);
+
+    const closeModal = () => {
+      setStudent(null);
+    };
+
+//   You cannot access document.body directly in a functional component
+    useEffect(() => {
+      if (student) {
+        document.body.classList.add("active-modl");
+      } else {
+        document.body.classList.remove("active-modl");
+      }
+      // Cleanup function to remove the class when component unmounts or when staff is null
+      return () => {
+        document.body.classList.remove("active-modl");
+      };
+    }, [student]);
 
   return (
     <div className="container mx-auto ">
-      {/* {staff && <ProfileCard data={staff} closeModal={closeModal} />} */}
+      {student && <StudentCard data={student} closeModal={closeModal} />}
 
       <h2 className="text-2xl font-bold mb-4">Student List</h2>
       <div className="flex justify-end items-center m-5">
         {" "}
-        <Link to={'/staff/addStudent'}>
-        <button className="bg-blue-400 text-white px-2 py-2 rounded-lg hover:bg-blue-600">
-          {" "}
-          Add Student
-        </button>
+        <Link to={"/staff/addStudent"}>
+          <button className="bg-blue-400 text-white px-2 py-2 rounded-lg hover:bg-blue-600">
+            {" "}
+            Add Student
+          </button>
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {staffList.map((staffMember, index) => (
+        {students.map((student, index) => (
           <div key={index} className="bg-white  rounded shadow p-4">
-            <h3 className="text-lg font-semibold uppercase">
-              {staffMember.name}
-            </h3>
-            <p className="text-gray-600">{staffMember.position}</p>
-            <p className="text-gray-600">{staffMember.email}</p>
+            <h3 className="text-lg font-semibold uppercase">{student.name}</h3>
+            <p className="text-gray-600">{student.position}</p>
+            <p className="text-gray-600">{student.email}</p>
+            <p className="text-gray-600">{student.course}</p>
+
             <div className="flex justify-end items-end">
               <button
                 onClick={() => {
-                  console.log(staff, "kidny");
-                  showModal(staffMember);
+                  showModal(student);
                 }}
                 className="bg-blue-400 text-white px-2 py-2 rounded-lg hover:bg-blue-600"
               >

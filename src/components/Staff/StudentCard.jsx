@@ -3,7 +3,7 @@
 /* eslint-disable react/prop-types */
 import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../api/axios";
-const ProfileCard = ({ data, closeModal }) => {
+const StudentCard = ({ data, closeModal }) => {
   const navigate = useNavigate();
   const deleteStaff = async (Id) => {
     try {
@@ -17,6 +17,7 @@ const ProfileCard = ({ data, closeModal }) => {
     try {
       // const response = await axiosInstance.put(`/admin/editStaff/${Id}`);
       // const editingStaff = response.data.editingStaff;
+      // console.log(editingStaff, "ish");
       navigate(`/admin/staffEdit/${_id}`);
     } catch (err) {
       console.error(err);
@@ -74,7 +75,7 @@ const ProfileCard = ({ data, closeModal }) => {
             <h3 className="text-xl font-semibold mt-2 uppercase">
               {data.name}{" "}
             </h3>
-            <h6 className="text-sm uppercase mt-1">{data.position} </h6>
+            <h6 className="text-sm uppercase mt-1">{data.course} </h6>
 
             <div className="mt-4">
               <button className="bg-teal-500 hover:bg-teal-600 text-gray-900 font-semibold py-2 px-4 rounded mr-2">
@@ -90,18 +91,7 @@ const ProfileCard = ({ data, closeModal }) => {
               </button>
             </div>
             <div className="mt-6">
-              <h6 className="text-sm font-semibold uppercase">Roles</h6>
-              <ul className="mt-2">
-                {
-                  data.roles.map((task,index)=>{
-
-                    <li key={index} className="inline-block bg-gray-800 border border-gray-700 rounded px-3 py-1 text-xs font-semibold mr-2 mb-2">
-                       {task[index]}
-                </li>
-                  })
-                }
-               
-              </ul>
+              <h6 className="text-sm font-semibold uppercase">Review</h6>
             </div>
           </div>
         </div>
@@ -110,4 +100,4 @@ const ProfileCard = ({ data, closeModal }) => {
   );
 };
 
-export default ProfileCard;
+export default StudentCard;

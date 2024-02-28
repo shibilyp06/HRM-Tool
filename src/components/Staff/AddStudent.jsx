@@ -1,50 +1,53 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 function AddStudent() {
   const [error, setError] = useState("");
   const [staff, setStaff] = useState({});
   const { Id } = useParams();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // const fetchStaff = async () => {
-    //   try {
-    //     const response = await axiosInstance.put(`/admin/editStaff/${Id}`);
-    //     const editingStaff = response.data.editingStaff;
-    //     setStaff(editingStaff);
-    //   } catch (err) {
-    //     console.error(err, "from err");
-    //   }
-    // };
-    // fetchStaff();
-  }, []);
+  //   useEffect(() => {
+  //     const fetchStaff = async () => {
+  //       try {
+  //         const response = await axiosInstance.get(`/staff/getStudents`);
+  //         const students = response.data.editingStaff;
+  //         setStaff(students);
+  //       } catch (err) {
+  //         console.error(err, "from err");
+  //       }
+  //     };
+  //     fetchStaff();
+  //   }, []);
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      console.log(e.target.elements.name.value,"eeee");
-      console.log("from");
-      const updatedData = {
-        name: e.target.elements.name.value,
-        email: e.target.elements.email.value,
-        course: e.target.elements.course.value,
-        dob: e.target.elements.dob.value,
-        phoneNumber: e.target.elements.phoneNumber.value,
-        imgURL:e.target.elements.imgURL.value
-      };-
-      console.log(updatedData, "updat");
+      const formData =  new FormData();
+      formData.append('name', e.target.elements.name.value)
+      formData.append('email;', e.target.elements.email.value)
+      formData.append('course', e.target.elements.course.value)
+      formData.append('dob', e.target.elements.dob.value)
+      formData.append('phoneNumber', e.target.elements.phoneNumber.value)
+      formData.append('imgURL', e.target.elements.imgURL.files[0])
+
+      console.log(formData,"formjiu");
       const response = await axiosInstance.post(
         "/staff/addStudent",
-        updatedData
+        formData
       );
+      if (response.status == 200) {
+        alert(" Student added successfully");
+        navigate("/staff/studentInfo");
+      }
     } catch (err) {
       console.error(err);
     }
   };
   return (
     <div className="bg-black text-white min-h-screen flex flex-col justify-center items-center">
-      <h1 className="text-3xl font-bold mb-8">Update Student</h1>
+      <h1 className="text-3xl font-bold mb-8">Add Student</h1>
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-96 h-auto">
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="flex flex-col">
@@ -115,7 +118,7 @@ function AddStudent() {
           <p className="text-red-600 ">{error} </p>
           <div className="flex justify-between items-center">
             <button className="px-6 py-2 bg-blue-500 hover:bg-blue-600 rounded-md transition-colors duration-300">
-              Update
+              Add
             </button>
             <button
               className="px-6 py-2 bg-gray-600 hover:bg-gray-700 rounded-md transition-colors duration-300"

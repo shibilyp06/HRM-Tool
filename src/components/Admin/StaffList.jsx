@@ -55,7 +55,6 @@ const StaffList = () => {
             <div className="flex justify-end items-end">
               <button
                 onClick={() => {
-                  console.log(staff, "kidny");
                   showModal(staffMember);
                 }}
                 className="bg-blue-400 text-white px-2 py-2 rounded-lg hover:bg-blue-600"
