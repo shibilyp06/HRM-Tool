@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function StaffHeader() {
   return (
     <>
-      <nav className="flex justify-between px-4 sm:px-8 py-6 items-center bg-gray-300">
+      <nav className="flex justify-between w-screen px-4 sm:px-8 py-6 items-center bg-blue-100">
         <h1 className="text-xl text-gray-800 font-bold">Cpmany</h1>
         <div className="flex items-center">
           <div className="flex items-center">
@@ -30,7 +30,10 @@ function StaffHeader() {
             />
           </div>
           <ul className="hidden sm:flex items-center space-x-6">
+           <Link to='/staff/Home'>
             <li className="font-semibold text-gray-700">Home</li>
+           </Link>
+
             <li className="font-semibold text-gray-700">Articles</li>
             <Link to={'/staff/studentInfo'}>
               {" "}

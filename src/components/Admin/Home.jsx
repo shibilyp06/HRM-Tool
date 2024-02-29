@@ -9,7 +9,6 @@ function Home() {
       <div className="flex flex-wrap justify-center -mx-4">
          <div className="w-full px-4">
             <div className="text-center mx-auto mb-[60px] lg:mb-20 max-w-[510px]">
-             
                <h2
                   className="
                   font-bold
@@ -33,6 +32,7 @@ function Home() {
          <div className="w-full md:w-1/2 lg:w-1/3 px-4">
             <div className="max-w-[370px] mx-auto mb-10">
                <div className="rounded overflow-hidden mb-8">
+                  {}
                   <img
                      src="https://cdn.tailgrids.com/1.0/assets/images/blogs/blog-01/image-01.jpg"
                      alt="image"

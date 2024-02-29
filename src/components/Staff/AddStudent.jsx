@@ -24,19 +24,18 @@ function AddStudent() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const formData =  new FormData();
-      formData.append('name', e.target.elements.name.value)
-      formData.append('email;', e.target.elements.email.value)
-      formData.append('course', e.target.elements.course.value)
-      formData.append('dob', e.target.elements.dob.value)
-      formData.append('phoneNumber', e.target.elements.phoneNumber.value)
-      formData.append('imgURL', e.target.elements.imgURL.files[0])
-
-      console.log(formData,"formjiu");
-      const response = await axiosInstance.post(
-        "/staff/addStudent",
-        formData
-      );
+      const formData = new FormData();
+      formData.append("name", e.target.elements.name.value);
+      formData.append("email", e.target.elements.email.value);
+      formData.append("course", e.target.elements.course.value);
+      formData.append("dob", e.target.elements.dob.value);
+      formData.append("phoneNumber", e.target.elements.phoneNumber.value);
+      formData.append("imgURL", e.target.elements.imgURL.files[0]);  
+      const response = await axiosInstance.post("/staff/addStudent", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       if (response.status == 200) {
         alert(" Student added successfully");
         navigate("/staff/studentInfo");

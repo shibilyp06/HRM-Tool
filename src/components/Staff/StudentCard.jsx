@@ -68,15 +68,15 @@ const StudentCard = ({ data, closeModal }) => {
               </svg>
             </button>
             <img
-              className="rounded-full border border-teal-500 p-1 mx-auto"
-              src="https://randomuser.me/api/portraits/women/79.jpg"
-              alt="user"
+              className="flex justify-center items-center rounded-full border w-40 h-40 border-teal-500 p-1 mx-auto"
+              src={data.imgURL}
+              alt=" + "
             />
+            
             <h3 className="text-xl font-semibold mt-2 uppercase">
               {data.name}{" "}
             </h3>
             <h6 className="text-sm uppercase mt-1">{data.course} </h6>
-
             <div className="mt-4">
               <button className="bg-teal-500 hover:bg-teal-600 text-gray-900 font-semibold py-2 px-4 rounded mr-2">
                 Message
