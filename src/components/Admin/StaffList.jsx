@@ -4,6 +4,7 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
 import ProfileCard from "./ProfileCard";
+import { Link } from "react-router-dom";
 const StaffList = () => {
   const [staffList, setStaffList] = useState([]);
   const [staff, setStaff] = useState(null);
@@ -39,10 +40,12 @@ const StaffList = () => {
       <h2 className="text-2xl font-bold mb-4">Staff List</h2>
       <div className="flex justify-end items-center m-5">
         {" "}
+        <Link to='/admin/addStaff'>
         <button className="bg-blue-400 text-white px-2 py-2 rounded-lg hover:bg-blue-600">
           {" "}
           Add Staff
         </button>
+        </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {staffList.map((staffMember, index) => (

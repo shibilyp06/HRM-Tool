@@ -4,10 +4,9 @@ import axiosInstance from "../../api/axios";
 import { Link } from "react-router-dom";
 import StudentCard from "./StudentCard";
 
-const StaffList = () => {
+const StudentsList = () => {
   const [students, setStudents] = useState([]);
     const [student, setStudent] = useState(null);
-
   useEffect(() => {
     const fetchStaff = async () => {
       try {
@@ -81,4 +80,4 @@ const StaffList = () => {
   );
 };
 
-export default StaffList;
+export default StudentsList;

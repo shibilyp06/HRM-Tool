@@ -48,7 +48,7 @@ function AddStudent() {
     <div className="bg-black text-white min-h-screen flex flex-col justify-center items-center">
       <h1 className="text-3xl font-bold mb-8">Add Student</h1>
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-96 h-auto">
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <form className="space-y-4" onSubmit={handleSubmit} >
           <div className="flex flex-col">
             <label htmlFor="name">Name</label>
             <input

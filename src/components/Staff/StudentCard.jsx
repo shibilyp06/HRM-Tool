@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../api/axios";
 const StudentCard = ({ data, closeModal }) => {
   const navigate = useNavigate();
@@ -78,9 +78,11 @@ const StudentCard = ({ data, closeModal }) => {
             </h3>
             <h6 className="text-sm uppercase mt-1">{data.course} </h6>
             <div className="mt-4">
+              <Link to='/staff/chat'>
               <button className="bg-teal-500 hover:bg-teal-600 text-gray-900 font-semibold py-2 px-4 rounded mr-2">
                 Message
               </button>
+              </Link>
               <button
                 onClick={() => {
                   editStaff(data._id);

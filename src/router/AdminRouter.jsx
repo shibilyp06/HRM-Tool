@@ -4,6 +4,8 @@ import AddStaff from "../components/Admin/AddStaff";
 import LandingPage from "../pages/Common/LandingPage";
 import ShowStaff from "../pages/Admin/ShowStaff";
 import EditStaff from "../components/Admin/EditStaff";
+import ShowStudentPage from "../pages/Admin/ShowStudentPage";
+import ChatPage from "../components/Common/ChatPage";
 
 function AdminRouter() {
   return (
@@ -11,9 +13,11 @@ function AdminRouter() {
       <Routes>
         <Route path="/Home" element={<AdminHome />}></Route>
         <Route path="/landingPage" element={<LandingPage/>}></Route>
+        <Route path="/studentsInfo" element={<ShowStudentPage/>}></Route>
         <Route path="/staffInfo" element={<ShowStaff />}></Route>
         <Route path="/addStaff" element={<AddStaff />}></Route>
         <Route path="/staffEdit/:Id" element={<EditStaff />}></Route>
+        <Route path="/chat" element={<ChatPage/>}></Route>
       </Routes>
     </>
   );
