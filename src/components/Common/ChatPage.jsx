@@ -1,4 +1,39 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from "react";
+import io from "socket.io-client";
+
 function ChatPage() {
+  const [message, setMessage] = useState("");
+  const [socket, setSocket] = useState(null);
+  useEffect(() => {
+    const socket = io("http://localhost:3000", { transports: ["websocket"] });
+
+    setSocket(socket);
+  }, []);
+  useEffect(() => {
+    if (!socket) return;
+    const handleConnect = () => {
+      console.log("Socket server connected");
+    };
+    const handleDisconnect = () => {
+      console.log("Disconnected from server");
+    };
+    const handleMessage = (data) => {
+      console.log("Received data from server:", data);
+    };
+    socket.on("connect", handleConnect);
+    socket.on("disconnect", handleDisconnect);
+    socket.on("message", handleMessage);
+  }, [message]);
+  const getMesasge = (e) => {
+    setMessage(e.target.value);
+    console.log(message);
+  };
+  const sendMessage = () => {
+    if (!socket) return;
+    socket.emit("message", message);
+  };
   return (
     <>
       <div className="flex flex-col items-center justify-center w-screen min-h-screen bg-gray-100 text-gray-800 p-10">
@@ -127,11 +162,15 @@ function ChatPage() {
 
           <div className="relative bg-gray-300 p-4">
             <input
+              onChange={getMesasge}
               className="flex items-center h-10 w-full rounded px-3 text-sm"
               type="text"
               placeholder="Type your message…"
             />
-            <button className="absolute top-0 right-0 mt-5 mr-5 bg-blue-200 hover:bg-blue-300 text-blue-800 hover:text-blue-900 rounded-md px-4 py-1">
+            <button
+              onClick={sendMessage}
+              className="absolute top-0 right-0 mt-5 mr-5 bg-blue-200 hover:bg-blue-300 text-blue-800 hover:text-blue-900 rounded-md px-4 py-1"
+            >
               Send
             </button>
           </div>
