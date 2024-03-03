@@ -4,22 +4,8 @@ import axiosInstance from "../../api/axios";
 import { useNavigate, useParams } from "react-router-dom";
 function AddStudent() {
   const [error, setError] = useState("");
-  const [staff, setStaff] = useState({});
-  const { Id } = useParams();
   const navigate = useNavigate();
 
-  //   useEffect(() => {
-  //     const fetchStaff = async () => {
-  //       try {
-  //         const response = await axiosInstance.get(`/staff/getStudents`);
-  //         const students = response.data.editingStaff;
-  //         setStaff(students);
-  //       } catch (err) {
-  //         console.error(err, "from err");
-  //       }
-  //     };
-  //     fetchStaff();
-  //   }, []);
 
   const handleSubmit = async (e) => {
     try {
@@ -30,7 +16,8 @@ function AddStudent() {
       formData.append("course", e.target.elements.course.value);
       formData.append("dob", e.target.elements.dob.value);
       formData.append("phoneNumber", e.target.elements.phoneNumber.value);
-      formData.append("imgURL", e.target.elements.imgURL.files[0]);  
+      formData.append("imgURL", e.target.elements.imgURL.files[0]);
+      console.log(formData.get("imgURL"),"jii");
       const response = await axiosInstance.post("/staff/addStudent", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -48,7 +35,7 @@ function AddStudent() {
     <div className="bg-black text-white min-h-screen flex flex-col justify-center items-center">
       <h1 className="text-3xl font-bold mb-8">Add Student</h1>
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-96 h-auto">
-        <form className="space-y-4" onSubmit={handleSubmit} >
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="flex flex-col">
             <label htmlFor="name">Name</label>
             <input

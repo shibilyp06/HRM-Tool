@@ -35,6 +35,10 @@ function EditStaff() {
         "/admin/updateStaff",
         updatedData
       );
+      if(response.status===200){
+        alert("--->Updated<---")
+        window.history.back()
+      }
     } catch (err) {
       console.error(err);
     }

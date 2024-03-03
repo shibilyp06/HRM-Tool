@@ -6,13 +6,13 @@ import StudentCard from "./StudentCard";
 
 const StudentsList = () => {
   const [students, setStudents] = useState([]);
-    const [student, setStudent] = useState(null);
+  const [student, setStudent] = useState(null);
   useEffect(() => {
     const fetchStaff = async () => {
       try {
         const response = await axiosInstance.get("/staff/getStudents");
         const students = response.data.students;
-        console.log(students , " lpopo");
+        console.log(students, " lpopo");
         setStudents(students);
       } catch (err) {
         console.error(err);
@@ -20,26 +20,26 @@ const StudentsList = () => {
     };
     fetchStaff();
   }, [student]);
-    const showModal = (student) => {
-      setStudent(student);
-    };
+  const showModal = (student) => {
+    setStudent(student);
+  };
 
-    const closeModal = () => {
-      setStudent(null);
-    };
+  const closeModal = () => {
+    setStudent(null);
+  };
 
-//   You cannot access document.body directly in a functional component
-    useEffect(() => {
-      if (student) {
-        document.body.classList.add("active-modl");
-      } else {
-        document.body.classList.remove("active-modl");
-      }
-      // Cleanup function to remove the class when component unmounts or when staff is null
-      return () => {
-        document.body.classList.remove("active-modl");
-      };
-    }, [student]);
+  //   You cannot access document.body directly in a functional component
+  useEffect(() => {
+    if (student) {
+      document.body.classList.add("active-modl");
+    } else {
+      document.body.classList.remove("active-modl");
+    }
+    // Cleanup function to remove the class when component unmounts or when staff is null
+    return () => {
+      document.body.classList.remove("active-modl");
+    };
+  }, [student]);
 
   return (
     <div className="container mx-auto ">
@@ -59,9 +59,9 @@ const StudentsList = () => {
         {students.map((student, index) => (
           <div key={index} className="bg-white  rounded shadow p-4">
             <h3 className="text-lg font-semibold uppercase">{student.name}</h3>
-            <p className="text-gray-600">{student.position}</p>
-            <p className="text-gray-600">{student.email}</p>
-            <p className="text-gray-600">{student.course}</p>
+            <p className="text-gray-600"> {`Name : ${student.name}`} </p>
+            <p className="text-gray-600"> {`Email : ${student.email}`} </p>
+            <p className="text-gray-600"> {`Course : ${student.course}`} </p>
 
             <div className="flex justify-end items-end">
               <button

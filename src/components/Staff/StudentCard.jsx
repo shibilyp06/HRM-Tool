@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
@@ -13,7 +14,7 @@ const StudentCard = ({ data, closeModal }) => {
       console.error(err);
     }
   };
-  const editStaff = async (_id) => {
+  const editStudent = async (_id) => {
     try {
       // const response = await axiosInstance.put(`/admin/editStaff/${Id}`);
       // const editingStaff = response.data.editingStaff;
@@ -72,25 +73,29 @@ const StudentCard = ({ data, closeModal }) => {
               src={data.imgURL}
               alt=" + "
             />
-            
+
             <h3 className="text-xl font-semibold mt-2 uppercase">
               {data.name}{" "}
             </h3>
             <h6 className="text-sm uppercase mt-1">{data.course} </h6>
             <div className="mt-4">
-              <Link to='/staff/chat'>
-              <button className="bg-teal-500 hover:bg-teal-600 text-gray-900 font-semibold py-2 px-4 rounded mr-2">
-                Message
-              </button>
+              {/* {data.role == "Admin" && ( */}
+              <Link to={`/staff/StudentChat/${data._id}`}>
+                <button className="bg-teal-500 hover:bg-teal-600 text-gray-900 font-semibold py-2 px-4 rounded mr-2">
+                  Message
+                </button>
               </Link>
+              {/* )} */}
+              <Link to={`/staff/editStudent/${data._id}`}>
               <button
                 onClick={() => {
-                  editStaff(data._id);
+                  editStudent(data._id);
                 }}
                 className="bg-transparent text-teal-500 font-semibold py-2 px-4 rounded border border-teal-500"
-              >
+                >
                 Edit Profile
               </button>
+                </Link>
             </div>
             <div className="mt-6">
               <h6 className="text-sm font-semibold uppercase">Review</h6>

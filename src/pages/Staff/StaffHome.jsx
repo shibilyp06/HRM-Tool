@@ -6,11 +6,11 @@ function StaffHome() {
     <>
      <div className="w-screen">
      <div>
-        {" "}
+    
         <StaffHeader />
       </div>
       <div>
-        {" "}
+  
         <AddCourse />
       </div>
 

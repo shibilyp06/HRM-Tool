@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../../api/axios";
 const ProfileCard = ({ data, closeModal }) => {
   const navigate = useNavigate();
@@ -67,8 +68,8 @@ const ProfileCard = ({ data, closeModal }) => {
               </svg>
             </button>
             <img
-              className="rounded-full border border-teal-500 p-1 mx-auto"
-              src="https://randomuser.me/api/portraits/women/79.jpg"
+              className="rounded-full border w-60 h-52 border-teal-500 p-1 mx-auto"
+              src={data.imgURL}
               alt="user"
             />
             <h3 className="text-xl font-semibold mt-2 uppercase">
@@ -77,7 +78,7 @@ const ProfileCard = ({ data, closeModal }) => {
             <h6 className="text-sm uppercase mt-1">{data.position} </h6>
 
             <div className="mt-4">
-              <Link to='/admin/chat'>
+              <Link to={`/admin/StaffChat/${data._id}`}>
               <button className="bg-teal-500 hover:bg-teal-600 text-gray-900 font-semibold py-2 px-4 rounded mr-2">
                 Message
               </button>
