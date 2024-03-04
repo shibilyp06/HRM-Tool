@@ -8,7 +8,7 @@ const StudentCard = ({ data, closeModal }) => {
   const navigate = useNavigate();
   const deleteStaff = async (Id) => {
     try {
-      const response = await axiosInstance.post(`/admin/deleteStaff/${Id}`);
+      const response = await axiosInstance.patch(`/staff/deleteStudent/${Id}`);
       closeModal();
     } catch (err) {
       console.error(err);
