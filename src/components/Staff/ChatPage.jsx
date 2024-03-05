@@ -1,16 +1,29 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
+import ChatHeader from "./ChatHeader";
 function AllChatPage() {
   const [list, setList] = useState([]);
+  const [profile, setProfile] = useState({});
   useEffect(() => {
     async function fetchUser() {
       const response = await axiosInstance.get("/staff/getStudents");
+      const staffs = await (
+        await axiosInstance.get("/admin/getStaff")
+      ).data.allStaff;
       console.log(response, " response from caht");
+
       const students = response.data.students;
-      setList(students);
+      console.log("students", students, "staff", staffs);
+      const allChatList = staffs.concat(students);
+      setList(allChatList);
+      console.log(list, " :: listts");
     }
     fetchUser();
   }, []);
+  const sendData = (Id) => {
+    setProfile(Id);
+    console.log(profile, " from oid ");
+  };
   return (
     <>
       <div className="container mx-auto shadow-lg rounded-lg">
@@ -41,7 +54,10 @@ function AllChatPage() {
             {list.map((staff, index) => {
               console.log(staff.name);
               return (
-                <div 
+                <div
+                  onClick={() => {
+                    sendData(staff);
+                  }}
                   key={index}
                   className="flex hover:bg-blue-300 transition duration-700 ease-in-out flex-row py-4 px-2 justify-center items-center border-b-2"
                 >
@@ -63,36 +79,18 @@ function AllChatPage() {
 
           <div className="w-full h-[75%] px-5 flex flex-col justify-between relative">
             <div className="flex flex-col mt-5">
-            
-              <div className="flex justify-end mb-4">
-                <div className="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
-                  Welcome to group everyone !
-                </div>
-                <img
-                  src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-                  className="object-cover h-8 w-8 rounded-full"
-                  alt=""
-                />
-              </div>
-              <div className="flex justify-start mb-4">
-                <img
-                  src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-                  className="object-cover h-8 w-8 rounded-full"
-                  alt=""
-                />
-                <div className="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  saepe, consequatur quas?
-                </div>
-              </div>
+              {<ChatHeader data={profile} />}
             </div>
 
-            <div className="absolute bottom-0 w-[95%]">
+            <div className="relative  w-[95%]">
               <input
-                className="bg-gray-300 py-5 px-3 rounded-xl w-full"
+                className="bg-gray-300 py-5 px-3 rounded-xl w-full pr-12" // Add pr-12 for padding on the right side
                 type="text"
-                placeholder="type your message here..."
+                placeholder="Type your message here..."
               />
+              <button className="absolute right-3 bottom-2 bg-blue-500 text-white py-3 px-6 rounded-lg transition duration-300 hover:bg-blue-600 hover:shadow-md">
+                Send
+              </button>
             </div>
           </div>
         </div>
