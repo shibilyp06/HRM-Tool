@@ -73,7 +73,7 @@ function StaffHeader() {
                 />
               </svg>
             </li>
-            <Link to={'/staff/adminChat'}>
+            <Link to={'/staff/chat'}>
             <li>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

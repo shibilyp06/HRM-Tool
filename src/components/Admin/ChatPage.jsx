@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import io from "socket.io-client";
 import axiosInstance from "../../api/axios";
-import { data } from "autoprefixer";
 
 function ChatPage() {
   const [message, setMessage] = useState("");
@@ -43,24 +42,33 @@ function ChatPage() {
     // socket.on("disconnect", handleDisconnect);
     // socket.on("message", message);
     socket.on("sendMessage", (message) => {
-      console.log(message, "messahe"); 
-    }); 
+
+      setMessage(message);
+      
+    });
   }, [socket]);
 
   const getMesasge = (e) => {
     const inputMessage = e.target.value;
     setMessage(inputMessage);
-    console.log(inputMessage);
+    // console.log(inputMessage);
   };
 
   const sendMessage = () => {
-    if (!socket) return;
-    socket.emit("message", message);
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { content: message, sentByCurrentUser: true }, // Add sentByCurrentUser flag to the message
-    ]);
-    setMessage(""); // Clear the input field after sending the message
+    try {
+      if (!socket) return;
+      console.log(message, "got here");
+      console.log(socket.id, "socketId");   
+      socket.emit("join", { socketId: socket.id });
+      socket.emit("message", { message, socketId: socket.id });
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { content: message, sentByCurrentUser: true }, // Add sentByCurrentUser flag to the message
+      ]);
+      setMessage(""); // Clear the input field after sending the message
+    } catch (err) {
+      console.error({ error: err });
+    }
   };
 
   return (
@@ -106,10 +114,24 @@ function ChatPage() {
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`message ${
+                className={`message${
                   message.sentByCurrentUser ? "sent" : "received"
                 }`}
               >
+                <div className="flex w-full mt-2 space-x-3 max-w-xs">
+                  <img
+                    src={profile.imgURL}
+                    className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"
+                  />
+                  <div>
+                    <div className="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
+                      <p className="text-lg">{messages.content}</p>
+                    </div>
+                    <span className="text-xs text-gray-500 leading-none">
+                      now
+                    </span>
+                  </div>
+                </div>
                 <div className="flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end">
                   <div>
                     <div className="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
@@ -137,7 +159,6 @@ function ChatPage() {
                 className="flex items-center h-10 w-full rounded px-3 text-sm"
                 type="text"
                 placeholder="Type your message…"
-                value={message} // Set input value to message state
               />
               <button
                 onClick={sendMessage}

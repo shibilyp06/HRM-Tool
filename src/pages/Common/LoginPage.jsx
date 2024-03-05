@@ -41,6 +41,7 @@ function Login() {
         }
       }
     } catch (err) {
+      console.log("ERROR", err)
       if (err.response.status === 404) {
         setError(err.response.data.err);
       } else if (err.response.status === 401) {
