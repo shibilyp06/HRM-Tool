@@ -78,7 +78,7 @@ function AllChatPage() {
           </div>
 
           <div className="w-full h-[75%] px-5 flex flex-col justify-between relative">
-            <div className="flex flex-col mt-5">
+            <div className="flex flex-col m-1  ">
               {<ChatHeader data={profile} />}
             </div>
 
