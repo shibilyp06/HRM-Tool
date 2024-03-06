@@ -1,26 +1,16 @@
 /* eslint-disable react/prop-types */
-import React from "react";
-import back from '../../assets/images/backButton.png'
 function ChatHeader({ data }) {
   console.log(data.name, "profile");
   return (
     <>
       <div className="flex bg-blue-300 rounded gap-7 m-2 transition duration-700 ease-in-out flex-row py-2 px-2 justify-center items-center border-b-2">
-        <button onClick={()=>{
-            window.history.back()
-        }}>
-
-        <div>
-          <img src={back} className="w-20 h-14 hover:scale-110 transition duration-700 ease-in-out" alt="" />
-
-        </div>
-        </button>
+      
         <div className="">
           <img
             src={data.imgURL}
             className="object-cover bg-black h-16 w-20 rounded-full"
             alt=""
-          /> 
+          />
         </div>
         <div className="w-full">
           <div className="text-lg font-semibold">{data.name}</div>

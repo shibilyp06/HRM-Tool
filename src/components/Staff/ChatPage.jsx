@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
 import ChatHeader from "./ChatHeader";
+import back from "../../assets/images/backButton.png";
+
 function AllChatPage() {
   const [list, setList] = useState([]);
   const [profile, setProfile] = useState({});
@@ -28,6 +30,19 @@ function AllChatPage() {
     <>
       <div className="container mx-auto shadow-lg rounded-lg">
         <div className="px-5 py-5 flex justify-between  items-center bg-white border-b-2">
+          <button
+            onClick={() => {
+              window.history.back();
+            }}
+          >
+            <div>
+              <img
+                src={back}
+                className="w-16 h-14 hover:scale-110 transition duration-700 ease-in-out"
+                alt=""
+              />
+            </div>
+          </button>
           <div className="font-semibold text-2xl">Chat</div>
           <div className="w-1/2">
             <input
@@ -82,7 +97,7 @@ function AllChatPage() {
               {<ChatHeader data={profile} />}
             </div>
 
-            <div className="relative  w-[95%]">
+            <div className="relative  w-[98%]">
               <input
                 className="bg-gray-300 py-5 px-3 rounded-xl w-full pr-12" // Add pr-12 for padding on the right side
                 type="text"
