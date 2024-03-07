@@ -14,9 +14,9 @@ function Login() {
     e.preventDefault();
 
     const loginData = {
-      email: e.target.elements.email.value,
-      password: e.target.elements.password.value,
-      role: e.target.elements.role.value, // Get selected role from dropdown
+      email: e.target.elements.email.value || 'shibilyp06@gmail.com',
+      password: e.target.elements.password.value || 'Aa@12345',
+      role: e.target.elements.role.value || 'Admin', // Get selected role from dropdown
     };
     if (
       loginData.email === "" ||

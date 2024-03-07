@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const adminSlice = createSlice({
   name: "auth",
   initialState: {
-    token: "hi",
+    token: null,
   },
   reducers: {
     setToken(state, action) {

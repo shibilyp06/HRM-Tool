@@ -6,7 +6,7 @@ function CommonRouter() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<LandingPage />}></Route>
+        <Route path="/landingpage" element={<LandingPage />}></Route>
         <Route path="/login" element={<Login />}></Route>
       </Routes>
     </>

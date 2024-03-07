@@ -8,12 +8,13 @@ instance.interceptors.request.use(
     const token = localStorage.getItem("jwtToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-      return config;
     }
+    return config;
   },
+
   (error) => {
     console.log("ERROR", error);
-    return Promise.reject(error);
+    // return Promise.reject(error);
   }
 );
 export default instance;

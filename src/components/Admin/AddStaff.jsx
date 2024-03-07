@@ -43,6 +43,7 @@ const AddStaffPage = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+      
     } catch (err) {
       console.error(err);
     }
