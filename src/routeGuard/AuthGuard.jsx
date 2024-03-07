@@ -2,10 +2,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../redux/adminSlice";
-import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
-import AdminRouter from "../router/AdminRouter";
-import StaffRouter from "../router/StaffRouter";
-import StudentRouter from "../router/StudentRouter";
+import { Outlet, useNavigate } from "react-router-dom";
+ 
 function AuthGuard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const dispatch = useDispatch();
@@ -18,7 +16,6 @@ function AuthGuard() {
 
     dispatch(setToken(jwtToken));
 
-
     if (jwt !== null && jwt !== undefined) {
       console.log("authenticated successfully");
       setIsAuthenticated(true);
@@ -26,18 +23,19 @@ function AuthGuard() {
     }
     if (!isAuthenticated) {
       console.log("not authenticated");
-      navigate("/common/login");
+      navigate("/login");
     }
   }, [jwt]);
   return (
     <>
-      {
-        jwt? (
-            <div> <Outlet/></div>
-        ):(
-            navigate('/common/login')
-        )
-      }
+      {jwt ? (
+        <div>
+          {" "}
+          <Outlet />
+        </div>
+      ) : (
+        navigate("/common/login")
+      )}
       {/* <Routes>
         <Route path="/admin/*" element={<AdminRouter />}></Route>
         <Route path="/staff/*" element={<StaffRouter />}></Route>

@@ -6,6 +6,7 @@ import axiosInstance from "../../api/axios";
 
 function ChatPage() {
   const [message, setMessage] = useState("");
+  const [receivedMessage, setReceivedMessage] = useState("");
   const [socket, setSocket] = useState(null);
   const [profile, setProfile] = useState({});
   const { Id } = useParams();
@@ -20,11 +21,17 @@ function ChatPage() {
       setProfile(staff);
     };
     fetchUser();
+    socketIo.on("receivedMessage", ({ message, senderId }) => {
+      console.log(message , " : Message from backend");
+      console.log(senderId , " : sende id  from backend ");
+    });
+    console.log(profile.email, "  : email r");
     setSocket(socketIo);
-  }, []);
+  }, [message]);
 
   useEffect(() => {
     if (!socket) return;
+    socket.emit("staffConnection", { emailId: profile.email });
     // const handleConnect = () => {
     //   console.log("Socket server connected");
     // };
@@ -42,9 +49,7 @@ function ChatPage() {
     // socket.on("disconnect", handleDisconnect);
     // socket.on("message", message);
     socket.on("sendMessage", (message) => {
-
       setMessage(message);
-      
     });
   }, [socket]);
 
@@ -58,7 +63,7 @@ function ChatPage() {
     try {
       if (!socket) return;
       console.log(message, "got here");
-      console.log(socket.id, "socketId");   
+      console.log(socket.id, "socketId");
       socket.emit("join", { socketId: socket.id });
       socket.emit("message", { message, socketId: socket.id });
       setMessages((prevMessages) => [

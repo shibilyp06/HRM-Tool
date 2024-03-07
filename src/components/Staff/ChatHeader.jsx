@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 function ChatHeader({ data }) {
-  console.log(data.name, "profile");
   return (
     <>
       <div className="flex bg-blue-300 rounded gap-7 m-2 transition duration-700 ease-in-out flex-row py-2 px-2 justify-center items-center border-b-2">
@@ -14,7 +13,7 @@ function ChatHeader({ data }) {
         </div>
         <div className="w-full">
           <div className="text-lg font-semibold">{data.name}</div>
-          <span className="text-gray-500">online</span>
+          <span className="text-gray-500">{data.role}</span>
         </div>
       </div>
 

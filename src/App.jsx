@@ -12,7 +12,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/common/*" element={<CommonRouter />}></Route>
+          <Route path="/*" element={<CommonRouter />}></Route>
             <Route path="/admin/*" element={<AdminRouter />}></Route>
             <Route path="/staff/*" element={<StaffRouter />}></Route>
             <Route path="/student/*" element={<StudentRouter />}></Route>

@@ -1,30 +1,40 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
 import ChatHeader from "./ChatHeader";
 import back from "../../assets/images/backButton.png";
-
+import io from "socket.io-client";
 function AllChatPage() {
+  const [message, setMessage] = useState("");
+  const [socket, setSocket] = useState(null);
   const [list, setList] = useState([]);
   const [profile, setProfile] = useState({});
   useEffect(() => {
     async function fetchUser() {
       const response = await axiosInstance.get("/staff/getStudents");
-      const staffs = await (
-        await axiosInstance.get("/admin/getStaff")
-      ).data.allStaff;
+      const students = response.data.students;
+      const admin = await (
+        await axiosInstance.get("/staff/getAdmin")
+      ).data.admin;
       console.log(response, " response from caht");
 
-      const students = response.data.students;
-      console.log("students", students, "staff", staffs);
-      const allChatList = staffs.concat(students);
+      //   console.log("students", students, "staff", staffs);
+      const allChatList = admin.concat(students);
       setList(allChatList);
-      console.log(list, " :: listts");
     }
     fetchUser();
   }, []);
+  useEffect(() => {
+    const socketIo = io("http://localhost:3000", { transports: ["websocket"] });
+    setSocket(socketIo);
+  }, []);
   const sendData = (Id) => {
     setProfile(Id);
-    console.log(profile, " from oid ");
+  };
+  const sendMessage = () => {};
+  const getData = (e) => {
+    const message = e.target.value;
+    setMessage(message);
   };
   return (
     <>
@@ -67,7 +77,6 @@ function AllChatPage() {
               />
             </div>
             {list.map((staff, index) => {
-              console.log(staff.name);
               return (
                 <div
                   onClick={() => {
@@ -99,11 +108,15 @@ function AllChatPage() {
 
             <div className="relative  w-[98%]">
               <input
+                onChange={getData}
                 className="bg-gray-300 py-5 px-3 rounded-xl w-full pr-12" // Add pr-12 for padding on the right side
                 type="text"
                 placeholder="Type your message here..."
               />
-              <button className="absolute right-3 bottom-2 bg-blue-500 text-white py-3 px-6 rounded-lg transition duration-300 hover:bg-blue-600 hover:shadow-md">
+              <button
+                onClick={sendMessage}
+                className="absolute right-3 bottom-2 bg-blue-500 text-white py-3 px-6 rounded-lg transition duration-300 hover:bg-blue-600 hover:shadow-md"
+              >
                 Send
               </button>
             </div>
