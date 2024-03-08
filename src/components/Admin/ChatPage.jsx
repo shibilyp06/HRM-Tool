@@ -19,19 +19,19 @@ function ChatPage() {
       const staff = response.data.editingStaff;
       console.log(staff, "staff");
       setProfile(staff);
+      setSocket(socketIo);
     };
     fetchUser();
-    socketIo.on("receivedMessage", ({ message, senderId }) => {
-      console.log(message , " : Message from backend");
-      console.log(senderId , " : sende id  from backend ");
-    });
-    console.log(profile.email, "  : email r");
-    setSocket(socketIo);
+    // socketIo.on("receivedMessage", ({ message, senderId }) => {
+    //   console.log(message , " : Message from backend");
+    //   console.log(senderId , " : sende id  from backend ");
+    // });
   }, [message]);
-
+  console.log(profile.email, "  : email Admin");
+  
   useEffect(() => {
     if (!socket) return;
-    socket.emit("staffConnection", { emailId: profile.email });
+    socket.emit("adminConnection", { adminEmail: profile.email });
     // const handleConnect = () => {
     //   console.log("Socket server connected");
     // };
@@ -47,11 +47,11 @@ function ChatPage() {
     // });
     // socket.on("connect", handleConnect);
     // socket.on("disconnect", handleDisconnect);
-    // socket.on("message", message);
+    // socket.on("message", handleMessage);
     socket.on("sendMessage", (message) => {
       setMessage(message);
     });
-  }, [socket]);
+  }, [message]);
 
   const getMesasge = (e) => {
     const inputMessage = e.target.value;
@@ -62,10 +62,8 @@ function ChatPage() {
   const sendMessage = () => {
     try {
       if (!socket) return;
-      console.log(message, "got here");
-      console.log(socket.id, "socketId");
-      socket.emit("join", { socketId: socket.id });
-      socket.emit("message", { message, socketId: socket.id });
+      console.log(message, "message here");
+      socket.emit("message", { message });
       setMessages((prevMessages) => [
         ...prevMessages,
         { content: message, sentByCurrentUser: true }, // Add sentByCurrentUser flag to the message

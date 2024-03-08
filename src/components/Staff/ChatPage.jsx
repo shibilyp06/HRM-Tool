@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
@@ -13,21 +14,25 @@ function AllChatPage() {
     async function fetchUser() {
       const response = await axiosInstance.get("/staff/getStudents");
       const students = response.data.students;
+      const staffEmail = response.data.staffEmail.payload;
+      console.log(staffEmail, " staff email");
       const admin = await (
         await axiosInstance.get("/staff/getAdmin")
       ).data.admin;
       console.log(response, " response from caht");
 
-      //   console.log("students", students, "staff", staffs);
       const allChatList = admin.concat(students);
       setList(allChatList);
+      const socketIo = io("http://localhost:3000", {
+        transports: ["websocket"],
+      });
+      console.log(staffEmail, " staff Email");
+      socketIo.emit("staffConnection", { staffEmail });
+      setSocket(socketIo);
     }
     fetchUser();
   }, []);
-  useEffect(() => {
-    const socketIo = io("http://localhost:3000", { transports: ["websocket"] });
-    setSocket(socketIo);
-  }, []);
+  useEffect(() => {}, []);
   const sendData = (Id) => {
     setProfile(Id);
   };
