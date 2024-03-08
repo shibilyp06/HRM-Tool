@@ -12,7 +12,8 @@ function ChatPage() {
   const { Id } = useParams();
   const [messages, setMessages] = useState([]);
 
-  useEffect(() => {3
+  useEffect(() => {
+    3;
     try {
       const socketIo = io("http://localhost:3000", {
         transports: ["websocket"],
@@ -22,14 +23,12 @@ function ChatPage() {
         const response = await axiosInstance.put(`/admin/editStaff/${Id}`);
         const staff = response.data.editingStaff;
         const adminEmail = response.data.adminEmail;
-        staff.adminEmail = adminEmail
-        console.log(adminEmail, " : Admin Email");
+        staff.adminEmail = adminEmail;
         console.log(staff, "staff");
         setProfile(staff);
         setSocket(socketIo);
       };
       fetchUser();
-      socket.emit("adminConnection", { adminEmail: profile.adminEmail });
       // socketIo.on("receivedMessage", ({ message, senderId }) => {
       //   console.log(message , " : Message from backend");
       //   console.log(senderId , " : sende id  from backend ");
@@ -38,9 +37,11 @@ function ChatPage() {
       console.error(err);
     }
   }, [message]);
+  console.log(profile.adminEmail, " : Admin Email");
 
   useEffect(() => {
     if (!socket) return;
+    socket.emit("adminConnection", { adminEmail: profile.adminEmail });
     // const handleConnect = () => {
     //   console.log("Socket server connected");
     // };
@@ -60,7 +61,7 @@ function ChatPage() {
     socket.on("sendMessage", (message) => {
       setMessage(message);
     });
-  }, [message]);
+  }, [socket]);
 
   const getMesasge = (e) => {
     const inputMessage = e.target.value;
@@ -72,7 +73,7 @@ function ChatPage() {
     try {
       if (!socket) return;
       console.log(message, "message here");
-      socket.emit("message", { message });
+      socket.emit("message", { sender:profile.email ,receiver:profile.adminEmail,message});
       setMessages((prevMessages) => [
         ...prevMessages,
         { content: message, sentByCurrentUser: true }, // Add sentByCurrentUser flag to the message

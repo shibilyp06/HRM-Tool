@@ -10,11 +10,13 @@ function AllChatPage() {
   const [socket, setSocket] = useState(null);
   const [list, setList] = useState([]);
   const [profile, setProfile] = useState({});
+  const [staffEmail, setStaffEmail] = useState("");
   useEffect(() => {
     async function fetchUser() {
       const response = await axiosInstance.get("/staff/getStudents");
       const students = response.data.students;
       const staffEmail = response.data.staffEmail.payload;
+      setStaffEmail(staffEmail);
       console.log(staffEmail, " staff email");
       const admin = await (
         await axiosInstance.get("/staff/getAdmin")
@@ -22,11 +24,12 @@ function AllChatPage() {
       console.log(response, " response from caht");
 
       const allChatList = admin.concat(students);
+
+      console.log(allChatList, " allChatList");
       setList(allChatList);
       const socketIo = io("http://localhost:3000", {
         transports: ["websocket"],
       });
-      console.log(staffEmail, " staff Email");
       socketIo.emit("staffConnection", { staffEmail });
       setSocket(socketIo);
     }
@@ -36,8 +39,17 @@ function AllChatPage() {
   const sendData = (Id) => {
     setProfile(Id);
   };
-  const sendMessage = () => {};
-  const getData = (e) => {
+  const sendMessage = () => {
+    if (!socket) return;
+    console.log(message, " : message from staff");
+    console.log(profile, " : profile");
+    socket.emit("message", {
+      sender: staffEmail,
+      receiver: profile.email,
+      message,
+    });
+  };
+  const getMessage = (e) => {
     const message = e.target.value;
     setMessage(message);
   };
@@ -113,7 +125,7 @@ function AllChatPage() {
 
             <div className="relative  w-[98%]">
               <input
-                onChange={getData}
+                onChange={getMessage}
                 className="bg-gray-300 py-5 px-3 rounded-xl w-full pr-12" // Add pr-12 for padding on the right side
                 type="text"
                 placeholder="Type your message here..."
