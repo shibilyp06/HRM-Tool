@@ -12,26 +12,35 @@ function ChatPage() {
   const { Id } = useParams();
   const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    const socketIo = io("http://localhost:3000", { transports: ["websocket"] });
-    const fetchUser = async () => {
-      const response = await axiosInstance.put(`/admin/editStaff/${Id}`);
-      const staff = response.data.editingStaff;
-      console.log(staff, "staff");
-      setProfile(staff);
-      setSocket(socketIo);
-    };
-    fetchUser();
-    // socketIo.on("receivedMessage", ({ message, senderId }) => {
-    //   console.log(message , " : Message from backend");
-    //   console.log(senderId , " : sende id  from backend ");
-    // });
+  useEffect(() => {3
+    try {
+      const socketIo = io("http://localhost:3000", {
+        transports: ["websocket"],
+      });
+      const fetchUser = async () => {
+        // fetching Staff from dataBase
+        const response = await axiosInstance.put(`/admin/editStaff/${Id}`);
+        const staff = response.data.editingStaff;
+        const adminEmail = response.data.adminEmail;
+        staff.adminEmail = adminEmail
+        console.log(adminEmail, " : Admin Email");
+        console.log(staff, "staff");
+        setProfile(staff);
+        setSocket(socketIo);
+      };
+      fetchUser();
+      socket.emit("adminConnection", { adminEmail: profile.adminEmail });
+      // socketIo.on("receivedMessage", ({ message, senderId }) => {
+      //   console.log(message , " : Message from backend");
+      //   console.log(senderId , " : sende id  from backend ");
+      // });
+    } catch (err) {
+      console.error(err);
+    }
   }, [message]);
-  console.log(profile.email, "  : email Admin");
-  
+
   useEffect(() => {
     if (!socket) return;
-    socket.emit("adminConnection", { adminEmail: profile.email });
     // const handleConnect = () => {
     //   console.log("Socket server connected");
     // };
