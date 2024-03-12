@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
 import CommonRouter from "./router/CommonRouter";
-import AuthGuard from "./routeGuard/AuthGuard";
 import AdminRouter from "./router/AdminRouter";
 import StaffRouter from "./router/StaffRouter";
 import StudentRouter from "./router/StudentRouter";

@@ -1,8 +1,14 @@
+import { Route, Routes } from "react-router-dom";
+import StudentHome from "../pages/Student/StudentHome";
+
 function StudentRouter() {
-  return (<>
-  
-  </>
-  )
+  return (
+    <>
+      <Routes>
+        <Route path="/Home" element={<StudentHome/>}></Route>
+      </Routes>
+    </>
+  );
 }
 
-export default StudentRouter
+export default StudentRouter;

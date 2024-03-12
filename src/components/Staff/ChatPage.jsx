@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
 import ChatHeader from "./ChatHeader";
@@ -17,8 +18,11 @@ function AllChatPage() {
     const socketIo = io("http://localhost:3000", {
       transports: ["websocket"],
     });
-
     async function fetchUser() {
+      const messages = (
+        await axios.get("http://localhost:3000/message/getMessages")
+      ).data.messages;
+      console.log(messages, " : messages");
       // fetching staff from database
       const response = await axiosInstance.get("/staff/getStudents");
       const students = response.data.students;
@@ -69,7 +73,7 @@ function AllChatPage() {
 
     const response = await axios.post(
       "http://localhost:3000/message/saveMessage",
-      { message,sender:staffEmail ,receiver:profile.email }
+      { message, sender: staffEmail, receiver: profile.email }
     );
 
     const sentMessage = { content: message.trim(), sender: staffEmail };
