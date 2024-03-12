@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import io from "socket.io-client";
 import axiosInstance from "../../api/axios";
+import { set } from "mongoose";
 
 function ChatPage() {
   const [message, setMessage] = useState("");
@@ -63,8 +64,11 @@ function ChatPage() {
     ]);
 
     setMessage(""); // Clear the input field after sending the message
-  };
-
+  };  
+   const filteredMessage = messages.filter((message)=>{
+    return message.sender == profile.adminEmail  || message.sender === profile.email
+   })
+   console.log(messages  , " : messages from admin");
   return (
     <div className="flex flex-col items-center justify-center w-screen min-h-screen bg-gray-100 text-gray-800 p-10">
       <div className="flex flex-col flex-grow w-full max-w-xl bg-fixed bg-white shadow-xl rounded-lg overflow-hidden">
@@ -100,15 +104,15 @@ function ChatPage() {
 
         {/* Messages */}
         <div className="messages-container flex flex-col flex-grow h-0 p-4 overflow-auto">
-          {messages.map((message, index) => (
+          {filteredMessage.map((message, index) => (
             <div
               key={index}
               className={`message ${
-                message.sender === profile.adminEmail ? "sent" : "received"
+                message.sender === profile.adminEmail ? "flex justify-end ml-auto " : "flex justify-start"
               }`}
             >
               <div className="flex w-full mt-2 space-x-3 max-w-xs">
-                
+
                 {message.sender !== profile.adminEmail && (
                   <img
                     src={profile.imgURL}

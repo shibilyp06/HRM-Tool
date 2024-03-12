@@ -11,6 +11,7 @@ function AllChatPage() {
   const [profile, setProfile] = useState({});
   const [staffEmail, setStaffEmail] = useState("");
   const [receivedMessages, setReceivedMessages] = useState([]);
+  const [currentStaff, setCurrentStaff] = useState({});
 
   useEffect(() => {
     const socketIo = io("http://localhost:3000", {
@@ -25,13 +26,18 @@ function AllChatPage() {
 
       // fetching Admin from database
       setStaffEmail(staffEmail);
-      const admin = (await axiosInstance.get("/staff/getAdmin")).data.admin;
+      const admin = await (
+        await axiosInstance.get("/staff/getAdmin")
+      ).data.admin;
       const allChatList = admin.concat(students);
       setList(allChatList);
- 
-      // Fetching current staff from database
-      
 
+      // Fetching current staff from database
+      const currentStaff = await axiosInstance.get(
+        `/staff/getMe/${staffEmail}`
+      );
+      const staff = currentStaff.data.staff;
+      setCurrentStaff(staff);
       socketIo.emit("staffConnection", { staffEmail });
       setSocket(socketIo);
     }
@@ -47,6 +53,7 @@ function AllChatPage() {
     if (!socket) return;
 
     socket.on("message", ({ message, sender }) => {
+      console.log(message, sender);
       setReceivedMessages((previousMessages) => [
         ...previousMessages,
         { content: message.trim(), sender },
@@ -56,26 +63,34 @@ function AllChatPage() {
 
   const selectProfile = (selectedProfile) => {
     setProfile(selectedProfile);
+    setMessageBox(true);
   };
-
   const sendMessage = () => {
     if (!socket || !profile.email || !message.trim()) return;
 
+    const sentMessage = { content: message.trim(), sender: staffEmail };
+
+    // Add the sent message to the list of received messages for display
+    setReceivedMessages((previousMessages) => [
+      ...previousMessages,
+      sentMessage,
+    ]);
+
+    // Clear the message input after sending
+    setMessage("");
+
+    // Emit the message to the server
     socket.emit("message", {
       sender: staffEmail,
       receiver: profile.email,
       message: message.trim(),
     });
-
-    // Add the sent message to the list of received messages for display
-    setReceivedMessages((previousMessages) => [
-      ...previousMessages,
-      { content: message.trim(), sender: staffEmail },
-    ]);
-
-    // Clear the message input after sending
-    setMessage("");
   };
+
+  const filterdMessage = receivedMessages.filter((message) => {
+    return message.sender === staffEmail || message.sender === profile.email;
+  });
+  console.log(receivedMessages, " : message from filter");
 
   return (
     <>
@@ -136,7 +151,8 @@ function AllChatPage() {
             </div>
 
             {/* Chat messages */}
-            {receivedMessages.map((message, index) => (
+
+            {filterdMessage.map((message, index) => (
               <div
                 key={index}
                 className={`flex mb-4 ${
@@ -155,7 +171,11 @@ function AllChatPage() {
                   {message.content}
                 </div>
                 <img
-                  src={profile.imgURL}
+                  src={
+                    message.sender === staffEmail
+                      ? currentStaff.imgURL
+                      : profile.imgURL
+                  }
                   className="object-cover h-8 w-8 rounded-full"
                   alt=""
                 />
