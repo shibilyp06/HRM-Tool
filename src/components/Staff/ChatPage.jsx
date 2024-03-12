@@ -3,7 +3,7 @@ import axiosInstance from "../../api/axios";
 import ChatHeader from "./ChatHeader";
 import back from "../../assets/images/backButton.png";
 import io from "socket.io-client";
-
+import axios from "axios";
 function AllChatPage() {
   const [message, setMessage] = useState("");
   const [socket, setSocket] = useState(null);
@@ -63,10 +63,14 @@ function AllChatPage() {
 
   const selectProfile = (selectedProfile) => {
     setProfile(selectedProfile);
-    setMessageBox(true);
   };
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (!socket || !profile.email || !message.trim()) return;
+
+    const response = await axios.post(
+      "http://localhost:3000/message/saveMessage",
+      { message,sender:staffEmail ,receiver:profile.email }
+    );
 
     const sentMessage = { content: message.trim(), sender: staffEmail };
 

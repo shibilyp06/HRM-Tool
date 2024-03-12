@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import io from "socket.io-client";
 import axiosInstance from "../../api/axios";
-import { set } from "mongoose";
 
 function ChatPage() {
   const [message, setMessage] = useState("");
