@@ -70,6 +70,7 @@ function AllChatPage() {
   };
   const sendMessage = async () => {
     if (!socket || !profile.email || !message.trim()) return;
+    console.log("hellow -- after");
 
     const response = await axios.post(
       "http://localhost:3000/message/saveMessage",
