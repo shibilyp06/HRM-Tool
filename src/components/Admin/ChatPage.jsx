@@ -12,6 +12,30 @@ function ChatPage() {
   const { Id } = useParams();
 
   useEffect(() => {
+    async function fetchMessages() {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/message/getMessages"
+        );
+        const messages = response.data.messages;
+        console.log(profile.email, "  : profile email");
+        // Filter messages based on sender or receiver
+        const filteredMessages = messages.filter((msg) => {
+          return (
+            (msg.sender === profile.email && msg.receiver === profile.adminEmail) ||
+            (msg.sender === profile.adminEmail && msg.receiver === profile.email)
+          );
+        });
+        
+        setMessages(filteredMessages);
+        console.log(filteredMessages, " : filtered messages");
+        // Update receivedMessages state with filtered messages
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      }
+    }
+
+    fetchMessages();
     const socketIo = io("http://localhost:3000", {
       transports: ["websocket"],
     });
@@ -30,7 +54,7 @@ function ChatPage() {
     };
 
     fetchUser();
-  }, [Id]);
+  }, [Id, profile.adminEmail, profile.email]);
 
   // useEffect(() => {
   //   // return () => {
@@ -68,12 +92,7 @@ function ChatPage() {
 
     setMessage(""); // Clear the input field after sending the message
   };
-  const filteredMessage = messages.filter((message) => {
-    return (
-      message.sender == profile.adminEmail || message.sender === profile.email
-    );
-  });
-  console.log(messages, " : messages from admin");
+
   return (
     <div className="flex flex-col items-center justify-center w-screen min-h-screen bg-gray-100 text-gray-800 p-10">
       <div className="flex flex-col flex-grow w-full max-w-xl bg-fixed bg-white shadow-xl rounded-lg overflow-hidden">
@@ -109,10 +128,10 @@ function ChatPage() {
 
         {/* Messages */}
         <div className="messages-container flex flex-col flex-grow h-0 p-4 overflow-auto">
-          {filteredMessage.map((message, index) => (
+          {messages.map((message, index) => (
             <div
               key={index}
-              className={`message ${
+              className={` ${
                 message.sender === profile.adminEmail
                   ? "flex justify-end ml-auto "
                   : "flex justify-start"
@@ -131,7 +150,7 @@ function ChatPage() {
                     message.sender === profile.adminEmail ? "blue" : "gray"
                   }-600 text-white p-3 rounded-l-lg rounded-br-lg`}
                 >
-                  <p className="text-lg">{message.content}</p>
+                  <p className="text-lg">{message.message}</p>
                 </div>
                 <span className="text-xs text-gray-500 leading-none">now</span>
               </div>
