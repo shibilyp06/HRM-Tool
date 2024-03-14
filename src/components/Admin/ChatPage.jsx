@@ -22,11 +22,13 @@ function ChatPage() {
         // Filter messages based on sender or receiver
         const filteredMessages = messages.filter((msg) => {
           return (
-            (msg.sender === profile.email && msg.receiver === profile.adminEmail) ||
-            (msg.sender === profile.adminEmail && msg.receiver === profile.email)
+            (msg.sender === profile.email &&
+              msg.receiver === profile.adminEmail) ||
+            (msg.sender === profile.adminEmail &&
+              msg.receiver === profile.email)
           );
         });
-        
+
         setMessages(filteredMessages);
         console.log(filteredMessages, " : filtered messages");
         // Update receivedMessages state with filtered messages
@@ -68,7 +70,7 @@ function ChatPage() {
     socket.on("message", ({ message, sender }) => {
       setMessages((prevMessages) => [
         ...prevMessages,
-        { content: message, sender },
+        { message: message, sender },
       ]);
     });
   }, [socket]);
@@ -87,7 +89,7 @@ function ChatPage() {
     );
     setMessages((prevMessages) => [
       ...prevMessages,
-      { content: message.trim(), sender: profile.adminEmail },
+      { message: message.trim(), sender: profile.adminEmail },
     ]);
 
     setMessage(""); // Clear the input field after sending the message
@@ -138,13 +140,16 @@ function ChatPage() {
               }`}
             >
               <div className="flex w-full mt-2 space-x-3 max-w-xs">
-                {message.sender !== profile.adminEmail && (
-                  <img
-                    src={profile.imgURL}
-                    className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"
-                    alt=""
-                  />
-                )}
+                <img
+                  src={
+                    message.sender === profile.adminEmail
+                      ? profile.adminEmail.imgURL
+                      : profile.imgURL
+                  }
+                  className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"
+                  alt=""
+                />
+
                 <div
                   className={`bg-${
                     message.sender === profile.adminEmail ? "blue" : "gray"

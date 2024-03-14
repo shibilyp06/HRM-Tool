@@ -55,56 +55,55 @@ function AllChatPage() {
       // if (sender == staffEmail || receiver == profile.email) {
       setReceivedMessages((previousMessages) => [
         ...previousMessages,
-        { content: message.trim(), sender },
+        { message: message.trim(), sender },
       ]);
       // }
     });
   }, [socket]);
 
-  const selectProfile = (selectedProfile) => {
-    setProfile(selectedProfile);
+  const selectProfile = async (selectedProfile) => {
     console.log("hellow brother");
-    async function fetchMessages() {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/message/getMessages"
-        );
-        const messages = response.data.messages;
-        console.log(selectedProfile, " :selected profile");
-        // Filter messages based on sender or receiver
-        const filteredMessages = messages.filter((msg) => {
-          return (
-            msg.sender === selectedProfile.email &&
-            msg.receiver === staffEmail ||
-            msg.receiver === selectedProfile.email && msg.sender === staffEmail
-            
-          );
-        });
-        console.log(filteredMessages, "  : filterder message");
-        // Update receivedMessages state with filtered messages
-        setReceivedMessages(filteredMessages);
-      } catch (error) {
-        console.error("Error fetching messages:", error);
-      }
-    }
-    fetchMessages();
+    setProfile(selectedProfile);
+    await fetchMessages(selectedProfile);
   };
+  async function fetchMessages(selectedProfile) {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/message/getMessages"
+      );
+      const messages = response.data.messages;
+      console.log(selectedProfile, " :selected profile");
+      // Filter messages based on sender or receiver
+      const filteredMessages = messages.filter((msg) => {
+        return (
+          (msg.sender === selectedProfile.email &&
+            msg.receiver === staffEmail) ||
+          (msg.receiver === selectedProfile.email && msg.sender === staffEmail)
+        );
+      });
+      console.log(filteredMessages, "  : filterder message");
+      // Update receivedMessages state with filtered messages
+      setReceivedMessages(filteredMessages);
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
+  }
   const sendMessage = async () => {
     if (!socket || !profile.email || !message.trim()) return;
     const response = await axios.post(
       "http://localhost:3000/message/saveMessage",
       { message, sender: staffEmail, receiver: profile.email }
     );
-
-    const sentMessage = { content: message.trim(), sender: staffEmail };
+    const sentMessage = { message: message.trim(), sender: staffEmail }; // Update the structure of the sent message
+    if (message.trim()) {
+      setMessage("");
+    }
     // Add the sent message to the list of received messages for display
     setReceivedMessages((previousMessages) => [
       ...previousMessages,
       sentMessage,
     ]);
-
     // Clear the message input after sending
-    setMessage("");
     // Emit the message to the server
     socket.emit("message", {
       sender: staffEmail,
@@ -185,8 +184,8 @@ function AllChatPage() {
                 <div
                   className={`${
                     message.sender === staffEmail
-                      ? "bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
-                      : "bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
+                      ? "bg-blue-400 rounded-bl-xl rounded-tl-xl rounded-tr-xl text-white"
+                      : "bg-gray-400 rounded-br-xl rounded-tr-xl rounded-tl-xl text-white"
                   } py-3 px-4 mr-2`}
                 >
                   {message.message}
