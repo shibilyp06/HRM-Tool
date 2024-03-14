@@ -1,4 +1,4 @@
-
+import payment_icon from "../../assets/images/payment-logo.png";
 function Dashboard() {
   return (
     <>
@@ -32,20 +32,22 @@ function Dashboard() {
                   <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                 </svg>
               </a>
-              <a
+              <a 
                 className="text-white/50 p-4 inline-flex justify-center rounded-md hover:bg-gray-800 hover:text-white smooth-hover"
                 href="#"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 sm:h-6 sm:w-6"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6"
                 >
                   <path
-                    fillRule="evenodd"
-                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                    clipRule="evenodd"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"
                   />
                 </svg>
               </a>
@@ -129,140 +131,6 @@ function Dashboard() {
                     />
                   </svg>
                 </a>
-              </div>
-            </div>
-            <div className="mb-10 sm:mb-0 mt-10 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              <div className="group bg-gray-900/30 py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-gray-900/40 hover:smooth-hover">
-                <a
-                  className="bg-gray-900/70 text-white/50 group-hover:text-white group-hover:smooth-hover flex w-20 h-20 rounded-full items-center justify-center"
-                  href="#"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-10 w-10"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="1"
-                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    />
-                  </svg>
-                </a>
-                <a
-                  className="text-white/50 group-hover:text-white group-hover:smooth-hover text-center"
-                  href="#"
-                >
-                  Create group
-                </a>
-              </div>
-              <div className="relative group bg-gray-900 py-10 sm:py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-gray-900/80 hover:smooth-hover">
-                <img
-                  className="w-20 h-20 object-cover object-center rounded-full"
-                  src="https://images.unsplash.com/photo-1547592180-85f173990554?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
-                  alt="cuisine"
-                />
-                <h4 className="text-white text-2xl font-bold capitalize text-center">
-                  Cuisine
-                </h4>
-                <p className="text-white/50">55 members</p>
-                <p className="absolute top-2 text-white/20 inline-flex items-center text-xs">
-                  22 Online{" "}
-                  <span className="ml-2 w-2 h-2 block bg-green-500 rounded-full group-hover:animate-pulse"></span>
-                </p>
-              </div>
-              <div className="relative group bg-gray-900 py-10 sm:py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-gray-900/80 hover:smooth-hover">
-                <img
-                  className="w-20 h-20 object-cover object-center rounded-full"
-                  src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1171&q=80"
-                  alt="art"
-                />
-                <h4 className="text-white text-2xl font-bold capitalize text-center">
-                  Art
-                </h4>
-                <p className="text-white/50">132 members</p>
-                <p className="absolute top-2 text-white/20 inline-flex items-center text-xs">
-                  4 Online{" "}
-                  <span className="ml-2 w-2 h-2 block bg-green-500 rounded-full group-hover:animate-pulse"></span>
-                </p>
-              </div>
-              <div className="relative group bg-gray-900 py-10 sm:py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-gray-900/80 hover:smooth-hover">
-                <img
-                  className="w-20 h-20 object-cover object-center rounded-full"
-                  src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-                  alt="gaming"
-                />
-                <h4 className="text-white text-2xl font-bold capitalize text-center">
-                  Gaming
-                </h4>
-                <p className="text-white/50">207 members</p>
-                <p className="absolute top-2 text-white/20 inline-flex items-center text-xs">
-                  0 Online{" "}
-                  <span className="ml-2 w-2 h-2 block bg-red-400 rounded-full group-hover:animate-pulse"></span>
-                </p>
-              </div>
-              <div className="relative group bg-gray-900 py-10 sm:py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-gray-900/80 hover:smooth-hover">
-                <img
-                  className="w-20 h-20 object-cover object-center rounded-full"
-                  src="https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1159&q=80"
-                  alt="cinema"
-                />
-                <h4 className="text-white text-2xl font-bold capitalize text-center">
-                  cinema
-                </h4>
-                <p className="text-white/50">105 members</p>
-                <p className="absolute top-2 text-white/20 inline-flex items-center text-xs">
-                  12 Online{" "}
-                  <span className="ml-2 w-2 h-2 block bg-green-500 rounded-full group-hover:animate-pulse"></span>
-                </p>
-              </div>
-              <div className="relative group bg-gray-900 py-10 sm:py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-gray-900/80 hover:smooth-hover">
-                <img
-                  className="w-20 h-20 object-cover object-center rounded-full"
-                  src="https://images.unsplash.com/photo-1484704849700-f032a568e944?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
-                  alt="song"
-                />
-                <h4 className="text-white text-2xl font-bold capitalize text-center">
-                  Song
-                </h4>
-                <p className="text-white/50">67 members</p>
-                <p className="absolute top-2 text-white/20 inline-flex items-center text-xs">
-                  3 Online{" "}
-                  <span className="ml-2 w-2 h-2 block bg-green-500 rounded-full group-hover:animate-pulse"></span>
-                </p>
-              </div>
-              <div className="relative group bg-gray-900 py-10 sm:py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-gray-900/80 hover:smooth-hover">
-                <img
-                  className="w-20 h-20 object-cover object-center rounded-full"
-                  src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
-                  alt="code"
-                />
-                <h4 className="text-white text-2xl font-bold capitalize text-center">
-                  Code
-                </h4>
-                <p className="text-white/50">83 members</p>
-                <p className="absolute top-2 text-white/20 inline-flex items-center text-xs">
-                  43 Online{" "}
-                  <span className="ml-2 w-2 h-2 block bg-green-500 rounded-full group-hover:animate-pulse"></span>
-                </p>
-              </div>
-              <div className="relative group bg-gray-900 py-10 sm:py-20 px-4 flex flex-col space-y-2 items-center cursor-pointer rounded-md hover:bg-gray-900/80 hover:smooth-hover">
-                <img
-                  className="w-20 h-20 object-cover object-center rounded-full"
-                  src="https://images.unsplash.com/photo-1533147670608-2a2f9775d3a4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
-                  alt="dancing"
-                />
-                <h4 className="text-white text-2xl font-bold capitalize text-center">
-                  Dancing
-                </h4>
-                <p className="text-white/50">108 members</p>
-                <p className="absolute top-2 text-white/20 inline-flex items-center text-xs">
-                  86 Online{" "}
-                  <span className="ml-2 w-2 h-2 block bg-green-500 rounded-full group-hover:animate-pulse"></span>
-                </p>
               </div>
             </div>
           </div>
