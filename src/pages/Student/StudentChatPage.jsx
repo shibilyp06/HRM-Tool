@@ -5,14 +5,15 @@ import axiosInstance from "../../api/axios";
 import back from "../../assets/images/backButton.png";
 import io from "socket.io-client";
 import axios from "axios";
+import ChatHeader from "../../components/Staff/ChatHeader";
 function StudentChatPage() {
   const [message, setMessage] = useState("");
   const [socket, setSocket] = useState(null);
   const [list, setList] = useState([]);
   const [profile, setProfile] = useState({});
-  const [staffEmail, setStaffEmail] = useState("");
+  const [studentEmail, setStudentEmail] = useState("");
   const [receivedMessages, setReceivedMessages] = useState([]);
-  const [currentStaff, setCurrentStaff] = useState({});
+  const [currentStudent, setCurrentStudent] = useState({});
 
   useEffect(() => {
     const socketIo = io("http://localhost:3000", {
@@ -20,25 +21,20 @@ function StudentChatPage() {
     });
     async function fetchUser() {
       // fetching staff from database
-      const response = await axiosInstance.get("/staff/getStudents");
-      const students = response.data.students;
-      const staffEmail = response.data.staffEmail.payload;
-
-      // fetching Admin from database
-      setStaffEmail(staffEmail);
-      const admin = await (
-        await axiosInstance.get("/staff/getAdmin")
-      ).data.admin;
-      const allChatList = admin.concat(students);
-      setList(allChatList);
-
-      // Fetching current staff from database
-      const currentStaff = await axiosInstance.get(
-        `/staff/getMe/${staffEmail}`
+      const response = await axiosInstance.get("/admin/getStaff");
+      const staffs = response.data.allStaff;
+      setList(staffs);
+      // current student Email
+      const currentStudent = response.data.studentEmail;
+      setStudentEmail(currentStudent);
+      // fetching current students data
+      const currentStudentInfi = await axiosInstance.get(
+        `/student/getCurrentStudent/${studentEmail}`
       );
-      const staff = currentStaff.data.staff;
-      setCurrentStaff(staff);
-      socketIo.emit("staffConnection", { staffEmail });
+      const student = currentStudentInfi.data.student;
+      setCurrentStudent(currentStudentInfi);
+
+      socketIo.emit("studentConnection", { studentEmail });
       setSocket(socketIo);
     }
 
@@ -77,8 +73,9 @@ function StudentChatPage() {
       const filteredMessages = messages.filter((msg) => {
         return (
           (msg.sender === selectedProfile.email &&
-            msg.receiver === staffEmail) ||
-          (msg.receiver === selectedProfile.email && msg.sender === staffEmail)
+            msg.receiver === studentEmail) ||
+          (msg.receiver === selectedProfile.email &&
+            msg.sender === studentEmail)
         );
       });
       console.log(filteredMessages, "  : filterder message");
@@ -92,9 +89,9 @@ function StudentChatPage() {
     if (!socket || !profile.email || !message.trim()) return;
     const response = await axios.post(
       "http://localhost:3000/message/saveMessage",
-      { message, sender: staffEmail, receiver: profile.email }
+      { message, sender: studentEmail, receiver: profile.email }
     );
-    const sentMessage = { message: message.trim(), sender: staffEmail }; // Update the structure of the sent message
+    const sentMessage = { message: message.trim(), sender: studentEmail }; // Update the structure of the sent message
     if (message.trim()) {
       setMessage("");
     }
@@ -106,7 +103,7 @@ function StudentChatPage() {
     // Clear the message input after sending
     // Emit the message to the server
     socket.emit("message", {
-      sender: staffEmail,
+      sender: studentEmail,
       receiver: profile.email,
       message: message.trim(),
     });
@@ -148,7 +145,7 @@ function StudentChatPage() {
               <div
                 key={index}
                 onClick={() => selectProfile(staff)}
-                className="flex hover:bg-blue-300 transition duration-700 ease-in-out flex-row py-4 px-2 justify-center items-center border-b-2"
+                className="flex bg-gray-800 hover:bg-blue-300  text-white hover:text-black transition duration-700 ease-in-out flex-row py-4 px-2 justify-center items-center border-b-2"
               >
                 <div className="w-1/4">
                   <img
@@ -158,32 +155,32 @@ function StudentChatPage() {
                   />
                 </div>
                 <div className="w-full">
-                  <div className="text-lg font-semibold">{staff.name}</div>
-                  <span className="text-gray-500">{staff.role}</span>
+                  <div className="text-lg   font-semibold">{staff.name}</div>
+                  <span className="">{staff.role}</span>
                 </div>
               </div>
             ))}
           </div>
 
           <div className="w-full h-[75%] px-5 flex flex-col justify-between relative">
-            {/* <div className="flex flex-col m-1">
+            <div className="flex flex-col m-1">
               <ChatHeader data={profile} />
-            </div> */}
+            </div>
 
             {/* Chat messages */}
 
             {receivedMessages.map((message, index) => (
               <div
                 key={index}
-                className={`flex mb-4 ${
-                  message.sender === staffEmail
+                className={`flex  ${
+                  message.sender === studentEmail
                     ? "justify-end"
                     : "justify-start"
                 }`}
               >
                 <div
                   className={`${
-                    message.sender === staffEmail
+                    message.sender === studentEmail
                       ? "bg-blue-400 rounded-bl-xl rounded-tl-xl rounded-tr-xl text-white"
                       : "bg-gray-400 rounded-br-xl rounded-tr-xl rounded-tl-xl text-white"
                   } py-3 px-4 mr-2`}
@@ -192,8 +189,8 @@ function StudentChatPage() {
                 </div>
                 <img
                   src={
-                    message.sender === staffEmail
-                      ? currentStaff.imgURL
+                    message.sender === studentEmail
+                      ? currentStudent.imgURL
                       : profile.imgURL
                   }
                   className="object-cover h-8 w-8 rounded-full"
