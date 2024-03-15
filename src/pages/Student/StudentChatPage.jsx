@@ -1,3 +1,5 @@
+/* eslint-disable no-inner-declarations */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
@@ -16,44 +18,49 @@ function StudentChatPage() {
   const [currentStudent, setCurrentStudent] = useState({});
 
   useEffect(() => {
-    const socketIo = io("http://localhost:3000", {
-      transports: ["websocket"],
-    });
-    async function fetchUser() {
-      // fetching staff from database
-      const response = await axiosInstance.get("/admin/getStaff");
-      const staffs = response.data.allStaff;
-      setList(staffs);
-      // current student Email
-      const currentStudent = response.data.studentEmail;
-      setStudentEmail(currentStudent);
-      // fetching current students data
-      const currentStudentInfi = await axiosInstance.get(
-        `/student/getCurrentStudent/${studentEmail}`
-      );
-      const student = currentStudentInfi.data.student;
-      setCurrentStudent(currentStudentInfi);
+    try {
+      const socketIo = io("http://localhost:3000", {
+        transports: ["websocket"],
+      });
+      async function fetchUser() {
+        // fetching staff from database
+        const response = await axiosInstance.get("/admin/getStaff");
+        const staffs = response.data.allStaff;
+        setList(staffs);
 
-      socketIo.emit("studentConnection", { studentEmail });
-      setSocket(socketIo);
+        // current student Email
+        const currentStudent = response.data.studentEmail;
+        setStudentEmail(currentStudent);
+
+        // fetching current students data`
+        const currentStudentInfo = await axiosInstance.get(
+          `/student/getCurrentStudent/${currentStudent} `
+        );
+        const student = currentStudentInfo.data.student;
+        console.log(student, " : student");
+        setCurrentStudent(student);
+
+        // emiting satff connection
+        socketIo.emit("studentConnection", { studentEmail });
+        setSocket(socketIo);
+      }
+      fetchUser();
+
+      // return () => {
+      //   socketIo.disconnect(); // Disconnect the socket when the component unmounts
+      // };
+    } catch (err) {
+      console.error(err);
     }
-
-    fetchUser();
-
-    // return () => {
-    //   socketIo.disconnect(); // Disconnect the socket when the component unmounts
-    // };
   }, []);
 
   useEffect(() => {
     if (!socket) return;
     socket.on("message", ({ message, sender, receiver }) => {
-      // if (sender == staffEmail || receiver == profile.email) {
       setReceivedMessages((previousMessages) => [
         ...previousMessages,
         { message: message.trim(), sender },
       ]);
-      // }
     });
   }, [socket]);
 
