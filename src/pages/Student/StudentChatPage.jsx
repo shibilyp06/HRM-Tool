@@ -135,9 +135,6 @@ function StudentChatPage() {
               className="rounded-2xl bg-gray-100 py-3 px-5 w-full"
             />
           </div>
-          <div className="h-12 w-12 p-2 bg-yellow-500 rounded-full text-white font-semibold flex items-center justify-center">
-            RA
-          </div>
         </div>
         <div className="flex flex-row justify-between h-[100vh] bg-gray-900">
           <div className="flex flex-col w-2/5 border-r-2 overflow-y-auto">

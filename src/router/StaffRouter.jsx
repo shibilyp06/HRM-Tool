@@ -6,6 +6,7 @@ import AddCourse from "../components/Staff/AddCourse.jsx";
 import AdminChatPage from "../components/Staff/AdminChat.jsx";
 import EditStudent from "../components/Staff/EditStudent.jsx";
 import ChatStaff from "../pages/Staff/ChatStaff.jsx";
+import AddCoursePage from "../pages/Staff/AddCoursePage.jsx";
 
 function StaffRouter() {
   return (
@@ -15,7 +16,7 @@ function StaffRouter() {
         <Route path="/Home" element={<StaffHome />}></Route>
         <Route path="/studentInfo" element={<StudentInfo />}></Route>
         <Route path="/addStudent" element={<AddStudent />}></Route>
-        <Route path="/addCourse" element={<AddCourse />}></Route>
+        <Route path="/addCourse" element={<AddCoursePage />}></Route>
         <Route path="/adminChat" element={<AdminChatPage />}></Route>
         <Route path="/editStudent/:Id" element={<EditStudent />}></Route>
         <Route path="/chat" element={<ChatStaff />}></Route>

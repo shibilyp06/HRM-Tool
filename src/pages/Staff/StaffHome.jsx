@@ -1,4 +1,3 @@
-import AddCourse from "../../components/Staff/AddCourse";
 import StaffHeader from "../../components/Staff/StaffHeader";
 
 function StaffHome() {
@@ -8,10 +7,6 @@ function StaffHome() {
      <div>
     
         <StaffHeader />
-      </div>
-      <div>
-  
-        <AddCourse />
       </div>
 
      </div>
