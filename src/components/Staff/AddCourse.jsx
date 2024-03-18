@@ -22,14 +22,14 @@ function AddCourse() {
 
   const handleSubmit = async (values) => {
     setCourseData(values);
+    console.log(courseData , " : course Data");
     try{
       const response = await AxiosInstance.post("/staff/addCourse",courseData)
+    
 
-      
     }catch(err){
       console.error(err)
     }
-    console.log(courseData , " : course Data");
   };
 
   const handleAddTopic = (formikProps) => {
@@ -50,7 +50,7 @@ function AddCourse() {
       topic: "",
       weeks: "",
     }));
-    formikProps.resetForm();
+    formikProps.resetForm(topic ,week);
   };
   const deleteTopic = (topic) => {
     setCourseData((prevState) => {
