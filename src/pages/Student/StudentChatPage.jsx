@@ -35,7 +35,7 @@ function StudentChatPage() {
         // fetching current students data`
         const currentStudentInfo = await axiosInstance.get(
           `/student/getCurrentStudent/${currentStudent} `
-        );
+        );0
         const student = currentStudentInfo.data.student;
         console.log(student, " : student");
         setCurrentStudent(student);
