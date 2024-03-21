@@ -1,7 +1,7 @@
 /* eslint-disable no-inner-declarations */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axiosInstance from "../../api/axios";
 // import ChatHeader from "./ChatHeader";
 import back from "../../assets/images/backButton.png";
@@ -16,6 +16,8 @@ function StudentChatPage() {
   const [studentEmail, setStudentEmail] = useState("");
   const [receivedMessages, setReceivedMessages] = useState([]);
   const [currentStudent, setCurrentStudent] = useState({});
+
+  const lastMessageRef = useRef(null);
 
   useEffect(() => {
     try {
@@ -53,6 +55,13 @@ function StudentChatPage() {
       console.error(err);
     }
   }, []);
+
+  // focusing on last message
+  const focusOnLastMessage = () => {
+    if (lastMessageRef.current) {
+      lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     if (!socket) return;
@@ -107,7 +116,9 @@ function StudentChatPage() {
       ...previousMessages,
       sentMessage,
     ]);
-    // Clear the message input after sending
+
+    focusOnLastMessage();
+
     // Emit the message to the server
     socket.emit("message", {
       sender: studentEmail,
@@ -118,31 +129,14 @@ function StudentChatPage() {
 
   return (
     <>
-      <div className="container bg-gray-900 mx-auto shadow-lg rounded-lg">
-        <div className="px-5 py-5 flex justify-between items-center text-white bg-gray-900 border-b-2">
-          <button onClick={() => window.history.back()}>
-            <img
-              src={back}
-              className="w-16 h-14 hover:scale-110 transition duration-700 ease-in-out"
-              alt=""
-            />
-          </button>
-          <div className="font-semibold text-2xl">Chat</div>
-          <div className="w-1/2">
-            <input
-              type="text"
-              placeholder="Search IRL"
-              className="rounded-2xl bg-gray-100 py-3 px-5 w-full"
-            />
-          </div>
-        </div>
+      <div className="container bg-gray-900 mx-auto shadow-lg rounded-lg w-full">
         <div className="flex flex-row justify-between h-[100vh] bg-gray-900">
           <div className="flex flex-col w-2/5 border-r-2 overflow-y-auto">
             <div className="border-b-2 py-4 px-2">
               <input
                 type="text"
                 placeholder="Search chatting"
-                className="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full"
+                className="py-2 px-2 border-2 border-gray-900 rounded-2xl w-full"
               />
             </div>
             {list.map((staff, index) => (
@@ -166,43 +160,48 @@ function StudentChatPage() {
             ))}
           </div>
 
-          <div className="w-full h-[75%] px-5 flex flex-col justify-between relative">
-            <div className="flex flex-col m-1">
-              <ChatHeader data={profile} />
-            </div>
-
-            {/* Chat messages */}
-
-            {receivedMessages.map((message, index) => (
-              <div
-                key={index}
-                className={`flex  ${
-                  message.sender === studentEmail
-                    ? "justify-end"
-                    : "justify-start"
-                }`}
-              >
-                <div
-                  className={`${
-                    message.sender === studentEmail
-                      ? "bg-blue-400 rounded-bl-xl rounded-tl-xl rounded-tr-xl text-white"
-                      : "bg-gray-400 rounded-br-xl rounded-tr-xl rounded-tl-xl text-white"
-                  } py-3 px-4 mr-2`}
-                >
-                  {message.message}
-                </div>
-                <img
-                  src={
-                    message.sender === studentEmail
-                      ? currentStudent.imgURL
-                      : profile.imgURL
-                  }
-                  className="object-cover h-8 w-8 rounded-full"
-                  alt=""
-                />
+          <div className="w-full h-[98%] px-5 flex flex-col justify-between relative">
+            <div className="flex flex-col flex-grow m-1 overflow-y-auto custom-scrollbar pt-10">
+              <div className="flex flex-col m-1">
+                <ChatHeader data={profile} />
               </div>
-            ))}
 
+              {/* Chat messages */}
+              {receivedMessages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex ${
+                    message.sender === studentEmail
+                      ? "justify-end"
+                      : "justify-start"
+                  }`}
+                >
+                  <div
+                    ref={
+                      index === receivedMessages.length - 1
+                        ? lastMessageRef
+                        : null
+                    }
+                    className={`${
+                      message.sender === studentEmail
+                        ? "bg-blue-400 rounded-bl-xl rounded-tl-xl rounded-tr-xl font-bold text-black m-1"
+                        : "bg-gray-400 rounded-br-xl rounded-tr-xl rounded-tl-xl font-bold text-black m-1"
+                    } py-3 px-4 mr-2`}
+                  >
+                    {message.message}
+                  </div>
+                  <img
+                    src={
+                      message.sender === studentEmail
+                        ? currentStudent.imgURL
+                        : profile.imgURL
+                    }
+                    className="object-cover h-8 w-8 rounded-full"
+                    alt=""
+                  />
+                </div>
+              ))}
+            </div>
             <div className="relative w-[98%]">
               <input
                 value={message}

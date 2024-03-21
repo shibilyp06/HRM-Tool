@@ -2,7 +2,7 @@
 function ChatHeader({ data }) {
   return (
     <>
-      <div className="flex bg-blue-300 rounded gap-7 m-2 transition duration-700 ease-in-out flex-row py-2 px-2 justify-center items-center border-b-2">
+      <div className="flex bg-blue-300 abso  w-[98%] rounded gap-7 m-2 transition duration-700 ease-in-out flex-row py-2 px-2 justify-center items-center border-b-2">
       
         <div className="">
           <img

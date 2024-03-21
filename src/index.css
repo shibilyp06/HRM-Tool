@@ -9,3 +9,16 @@ a:hover {
 body.active-modl{
   overflow-y: hidden;
 }
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(208, 201, 201, 0.3);
+  border-radius: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: rgba(137, 130, 130, 0.1);
+}
