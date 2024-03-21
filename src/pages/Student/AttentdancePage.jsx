@@ -1,6 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { useRef, useState } from "react";
 import Webcam from "react-webcam";
-// import axiosInstance from "../../api/axios";
+import axiosInstance from "../../api/axios";
+// importing  Toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 function AttentdancePage() {
   const webcamRef = useRef(null);
@@ -8,7 +13,7 @@ function AttentdancePage() {
   const [file, setFile] = useState(null);
   const [location, setLocation] = useState(null);
   const [distance, setDistance] = useState(null);
-
+  const navigate = useNavigate();
   // Capturing student's photo
   const capturePhoto = () => {
     getCurrentLocation();
@@ -25,23 +30,24 @@ function AttentdancePage() {
     }
   };
 
-  // Function for current location
+  // Function for finding current latitude and longitude
+
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          console.log;
           setLocation({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
-          console.log("kooi");
         },
         (error) => {
-          console.error("error in fetching current posistion", error);
+          console.error("Error getting geolocation:", error.message);
         }
       );
     } else {
-      console.error(" geolocation is not work in this browser");
+      console.error("Geolocation is not supported by this browser.");
     }
   };
 
@@ -51,47 +57,35 @@ function AttentdancePage() {
   };
 
   // Fuction for uploading photo
-  const uploadPhoto = (file) => {
-    console.log("kkoii");
-    calculateDistance(
-      defaultOfficeLocation.latitude,
-      defaultOfficeLocation.longitude,
-      location.latitude,
-      location.longitude
-    );
-    console.log(" llo");
-    // const formData = new FormData();
-    // formData.append("photo", file);
-    // console.log(formData.get("photo"));
-    // const response = await axiosInstance.post("/student/attendance")
+  const uploadPhoto = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const attendanceData = {
+        file: file,
+        location,
+      };
+      const response = await axiosInstance.post("/student/attendance", {
+        attendanceData,
+      });
+      const attendance = response.data.nearbyOffices;
+      console.log(attendance, "  : attentDance");
+      if (attendance[0]?.locationName) {
+        toast.success("Attendance added successfully");
+        setTimeout(() => {
+          navigate("/student/Home");
+        }, 3000);
+      } else {
+        toast.error("Attendanc adding failed ");
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const defaultOfficeLocation = {
-    latitude: 11.247947030374792, //  latitude of office location
-    longitude: 75.83430255755917, //  longitude of office location
-  };
-
-  function calculateDistance(latOffice, lonOffice, latCurrent, lonCurrent) {
-    const earthRadiusKm = 6371; // Radius of the Earth in kilometers
-    const dLat = degreesToRadians(latCurrent - latOffice);
-    const dLon = degreesToRadians(lonCurrent - lonOffice);
-
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(degreesToRadians(latOffice)) *
-        Math.cos(degreesToRadians(latCurrent)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const distance = earthRadiusKm * c; // Distance in kilometers
-    console.log(distance, " : distance");
-    return distance;
-  }
-  function degreesToRadians(degrees) {
-    return (degrees * Math.PI) / 180;
-  }
   return (
     <div className="flex flex-col items-center justify-center h-screen">
+      <ToastContainer style={{ width: "40%" }} />
       {capturedPhoto ? (
         <div className="relative">
           {location && (

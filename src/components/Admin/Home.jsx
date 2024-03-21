@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Home() {
+  useEffect(() => {
+    toast.success("Welcome admin");
+  }, []);
   return (
     <>
-<link rel="stylesheet" href="https://cdn.tailgrids.com/tailgrids-fallback.css" />
-<section className="">
-   <div className="container">
-      <div className="flex flex-wrap justify-center -mx-4">
-         <div className="w-full px-4">
-            <div className="text-center mx-auto mb-[60px] lg:mb-20 max-w-[510px]">
-               <h2
+      <link
+        rel="stylesheet"
+        href="https://cdn.tailgrids.com/tailgrids-fallback.css"
+      />
+      <section className="">
+        <div className="container">
+          <div className="flex flex-wrap justify-center -mx-4">
+            <div className="w-full px-4">
+              <div className="text-center mx-auto mb-[60px] lg:mb-20 max-w-[510px]">
+                <h2
                   className="
                   font-bold
                   text-3xl
@@ -18,30 +26,30 @@ function Home() {
                   text-dark
                   mb-4
                   "
-                  >
+                >
                   Our Recent News
-               </h2>
-               <p className="text-base text-body-color">
+                </h2>
+                <p className="text-base text-body-color">
                   There are many variations of passages of Lorem Ipsum available
                   but the majority have suffered alteration in some form.
-               </p>
+                </p>
+              </div>
             </div>
-         </div>
-      </div>
-      <div className="flex flex-wrap -mx-4">
-         <div className="w-full md:w-1/2 lg:w-1/3 px-4">
-            <div className="max-w-[370px] mx-auto mb-10">
-               <div className="rounded overflow-hidden mb-8">
+          </div>
+          <div className="flex flex-wrap -mx-4">
+            <div className="w-full md:w-1/2 lg:w-1/3 px-4">
+              <div className="max-w-[370px] mx-auto mb-10">
+                <div className="rounded overflow-hidden mb-8">
                   {}
                   <img
-                     src="https://cdn.tailgrids.com/1.0/assets/images/blogs/blog-01/image-01.jpg"
-                     alt="image"
-                     className="w-full"
-                     />
-               </div>
-               <div>
+                    src="https://cdn.tailgrids.com/1.0/assets/images/blogs/blog-01/image-01.jpg"
+                    alt="image"
+                    className="w-full"
+                  />
+                </div>
+                <div>
                   <span
-                     className="
+                    className="
                      bg-primary
                      rounded
                      inline-block
@@ -54,13 +62,13 @@ function Home() {
                      text-white
                      mb-5
                      "
-                     >
-                  Dec 22, 2023
+                  >
+                    Dec 22, 2023
                   </span>
                   <h3>
-                     <a
-                        href="javascript:void(0)"
-                        className="
+                    <a
+                      href="javascript:void(0)"
+                      className="
                         font-semibold
                         text-xl
                         sm:text-2xl
@@ -71,29 +79,29 @@ function Home() {
                         text-dark
                         hover:text-primary
                         "
-                        >
-                     Meet AutoManage, the best AI management tools
-                     </a>
+                    >
+                      Meet AutoManage, the best AI management tools
+                    </a>
                   </h3>
                   <p className="text-base text-body-color">
-                     Lorem Ipsum is simply dummy text of the printing and
-                     typesetting industry.
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry.
                   </p>
-               </div>
+                </div>
+              </div>
             </div>
-         </div>
-         <div className="w-full md:w-1/2 lg:w-1/3 px-4">
-            <div className="max-w-[370px] mx-auto mb-10">
-               <div className="rounded overflow-hidden mb-8">
+            <div className="w-full md:w-1/2 lg:w-1/3 px-4">
+              <div className="max-w-[370px] mx-auto mb-10">
+                <div className="rounded overflow-hidden mb-8">
                   <img
-                     src="https://cdn.tailgrids.com/1.0/assets/images/blogs/blog-01/image-02.jpg"
-                     alt="image"
-                     className="w-full"
-                     />
-               </div>
-               <div>
+                    src="https://cdn.tailgrids.com/1.0/assets/images/blogs/blog-01/image-02.jpg"
+                    alt="image"
+                    className="w-full"
+                  />
+                </div>
+                <div>
                   <span
-                     className="
+                    className="
                      bg-primary
                      rounded
                      inline-block
@@ -106,13 +114,13 @@ function Home() {
                      text-white
                      mb-5
                      "
-                     >
-                  Mar 15, 2023
+                  >
+                    Mar 15, 2023
                   </span>
                   <h3>
-                     <a
-                        href="javascript:void(0)"
-                        className="
+                    <a
+                      href="javascript:void(0)"
+                      className="
                         font-semibold
                         text-xl
                         sm:text-2xl
@@ -123,29 +131,29 @@ function Home() {
                         text-dark
                         hover:text-primary
                         "
-                        >
-                     How to earn more money as a wellness coach
-                     </a>
+                    >
+                      How to earn more money as a wellness coach
+                    </a>
                   </h3>
                   <p className="text-base text-body-color">
-                     Lorem Ipsum is simply dummy text of the printing and
-                     typesetting industry.
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry.
                   </p>
-               </div>
+                </div>
+              </div>
             </div>
-         </div>
-         <div className="w-full md:w-1/2 lg:w-1/3 px-4">
-            <div className="max-w-[370px] mx-auto mb-10">
-               <div className="rounded overflow-hidden mb-8">
+            <div className="w-full md:w-1/2 lg:w-1/3 px-4">
+              <div className="max-w-[370px] mx-auto mb-10">
+                <div className="rounded overflow-hidden mb-8">
                   <img
-                     src="https://cdn.tailgrids.com/1.0/assets/images/blogs/blog-01/image-03.jpg"
-                     alt="image"
-                     className="w-full"
-                     />
-               </div>
-               <div>
+                    src="https://cdn.tailgrids.com/1.0/assets/images/blogs/blog-01/image-03.jpg"
+                    alt="image"
+                    className="w-full"
+                  />
+                </div>
+                <div>
                   <span
-                     className="
+                    className="
                      bg-primary
                      rounded
                      inline-block
@@ -158,13 +166,13 @@ function Home() {
                      text-white
                      mb-5
                      "
-                     >
-                  Jan 05, 2023
+                  >
+                    Jan 05, 2023
                   </span>
                   <h3>
-                     <a
-                        href="javascript:void(0)"
-                        className="
+                    <a
+                      href="javascript:void(0)"
+                      className="
                         font-semibold
                         text-xl
                         sm:text-2xl
@@ -175,23 +183,23 @@ function Home() {
                         text-dark
                         hover:text-primary
                         "
-                        >
-                     The no-fuss guide to upselling and cross selling
-                     </a>
+                    >
+                      The no-fuss guide to upselling and cross selling
+                    </a>
                   </h3>
                   <p className="text-base text-body-color">
-                     Lorem Ipsum is simply dummy text of the printing and
-                     typesetting industry.
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry.
                   </p>
-               </div>
+                </div>
+              </div>
             </div>
-         </div>
-      </div>
-   </div>
-</section>
-
+          </div>
+        </div>
+      </section>
+      <ToastContainer style={{ width: "40%" }} />
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

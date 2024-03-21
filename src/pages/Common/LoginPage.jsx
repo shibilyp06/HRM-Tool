@@ -3,6 +3,9 @@ import axiosInstance from "../../api/axios";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../redux/adminSlice";
 import { useNavigate } from "react-router-dom";
+// implementing react tostify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const [err, setError] = useState("");
@@ -14,16 +17,17 @@ function Login() {
     e.preventDefault();
 
     const loginData = {
-      email: e.target.elements.email.value || 'shibilyp06@gmail.com',
-      password: e.target.elements.password.value || 'Aa@12345',
-      role: e.target.elements.role.value || 'Admin', // Get selected role from dropdown
+      email: e.target.elements.email.value,
+      password: e.target.elements.password.value,
+      role: e.target.elements.role.value,
     };
     if (
       loginData.email === "" ||
       loginData.password === "" ||
       loginData.role === ""
     ) {
-      return setError("Fill in all fields");
+      toast.error("Fill in all fields");
+      return 
     }
     try {
       const response = await axiosInstance.post("/loginPost", loginData);
@@ -34,7 +38,10 @@ function Login() {
         localStorage.setItem("jwtToken", jwtToken);
         dispatch(setToken(jwtToken));
         if (response.data.role == "Admin") {
+          
           navigate("/admin/Home");
+          toast.success("Welcome admin")
+
         } else if (response.data.role == "Staff") {
           navigate("/staff/Home");
         } else if (response.data.role == "Student") {
@@ -44,9 +51,10 @@ function Login() {
     } catch (err) {
       console.log("ERROR", err);
       if (err.response.status === 404) {
-        setError(err.response.data.err);
+        toast.error(err.response.data.error);
       } else if (err.response.status === 401) {
-        setError(err.response.data.err);
+        console.log(err.response , " : hhii");
+        toast.error(err.response.data.error);
       }
     }
   };
@@ -129,6 +137,7 @@ function Login() {
           </div>
         </div>
       </div>
+      <ToastContainer style={{width:"40%"}}  />
     </>
   );
 }

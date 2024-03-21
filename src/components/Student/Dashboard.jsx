@@ -1,13 +1,27 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-inner-declarations */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
 import useRazorpay from "react-razorpay";
 import { Link } from "react-router-dom";
+// importing  Toastify
+import { ToastContainer ,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Dashboard() {
   const [order, setOrder] = useState(null);
   const [Razorpay] = useRazorpay();
+  const [student,setStudent] = useState(null)
+  useEffect(()=>{
+    async function fetchStudent(){
+      const response = await axiosInstance.get("/student/getCurrentStudent")
+      const student = response.data.student
+      setStudent(student)
+      toast.success(`Welcome ${student.name}`)
+    }
+    fetchStudent()
+  },[])
 
   const paymentModal = async () => {
     try {
@@ -18,6 +32,7 @@ function Dashboard() {
       }
       fetchOrder();
     } catch (err) {
+
       console.error(err);
     }
     if (!order) return;
@@ -197,6 +212,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
+      <ToastContainer style={{width:"40%"}} />
     </>
   );
 }
