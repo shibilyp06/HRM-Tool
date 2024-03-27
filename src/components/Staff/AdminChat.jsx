@@ -10,7 +10,7 @@ function AdminChatPage() {
   const [profile, setProfile] = useState({});
   const { Id } = useParams();
   useEffect(() => {
-    const fetchUser = async () => { 
+    const fetchUser = async () => {
       const response = await axiosInstance.put(`/admin/editStaff/${Id}`);
       const staff = response.data.editingStaff;
       console.log(staff, "staff");
