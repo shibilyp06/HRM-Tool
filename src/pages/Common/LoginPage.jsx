@@ -3,7 +3,6 @@ import axiosInstance from "../../api/axios";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../redux/adminSlice";
 import { useNavigate } from "react-router-dom";
-// implementing react tostify
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -11,7 +10,7 @@ function Login() {
   const [err, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const roles = ["Admin", "Staff", "Student"]; // Define roles array
+  const roles = ["Admin", "Staff", "Student"];
 
   const loginSubmit = async (e) => {
     e.preventDefault();
@@ -27,33 +26,28 @@ function Login() {
       loginData.role === ""
     ) {
       toast.error("Fill in all fields");
-      return 
+      return;
     }
     try {
       const response = await axiosInstance.post("/loginPost", loginData);
 
       if (response.status === 200) {
         const jwtToken = response.data.token;
-        console.log(jwtToken, " : token from login");
         localStorage.setItem("jwtToken", jwtToken);
         dispatch(setToken(jwtToken));
-        if (response.data.role == "Admin") {
-          
+        if (response.data.role === "Admin") {
           navigate("/admin/Home");
-          toast.success("Welcome admin")
-
-        } else if (response.data.role == "Staff") {
+          toast.success("Welcome admin");
+        } else if (response.data.role === "Staff") {
           navigate("/staff/Home");
-        } else if (response.data.role == "Student") {
+        } else if (response.data.role === "Student") {
           navigate("/student/Home");
         }
       }
     } catch (err) {
-      console.log("ERROR", err);
       if (err.response.status === 404) {
         toast.error(err.response.data.error);
       } else if (err.response.status === 401) {
-        console.log(err.response , " : hhii");
         toast.error(err.response.data.error);
       }
     }
@@ -64,80 +58,52 @@ function Login() {
       <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-          <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+          <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-10">
             <div className="max-w-md mx-auto">
-              <div>
-                <h1 className="text-2xl text-blue-700 w-72 font-semibold">
-                  Login
-                </h1>
-              </div>
-              <div className="divide-y divide-gray-200">
-                <form onSubmit={loginSubmit}>
-                  <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                    <div className="relative">
-                      <input
-                        autoComplete="off"
-                        onClick={() => setError("")}
-                        id="email"
-                        name="email"
-                        type="email"
-                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-green-500"
-                        placeholder="Email address"
-                      />
-                      <label
-                        htmlFor="email"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                      >
-                        Email Address
-                      </label>
-                    </div>
-                    <div className="relative">
-                      <input
-                        autoComplete="off"
-                        id="password"
-                        name="password"
-                        type="password"
-                        onClick={() => setError("")}
-                        className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-green-500"
-                        placeholder="Password"
-                      />
-                      <label
-                        htmlFor="password"
-                        className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-                      >
-                        Password
-                      </label>
-                    </div>
-                    <div className="relative">
-                      <select
-                        id="role"
-                        name="role"
-                        className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-green-500"
-                      >
-                        <option value="">Select Role</option>
-                        {roles.map((role, index) => (
-                          <option key={index} value={role}>
-                            {role}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <p className="text-red-600 text-[16px] font-normal">
-                      {err}
-                    </p>
-                    <div className="relative">
-                      <button className="bg-blue-500 text-white rounded-md px-2 py-1">
-                        Submit
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
+              <h1 className="text-2xl text-blue-700 font-semibold text-center mb-6">
+                Login
+              </h1>
+              <form onSubmit={loginSubmit} className="space-y-4">
+                <input
+                  autoComplete="off"
+                  onClick={() => setError("")}
+                  id="email"
+                  name="email"
+                  type="email"
+                  className="w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-green-500"
+                  placeholder="Email address"
+                />
+                <input
+                  autoComplete="off"
+                  id="password"
+                  name="password"
+                  type="password"
+                  onClick={() => setError("")}
+                  className="w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-green-500"
+                  placeholder="Password"
+                />
+                <select
+                  id="role"
+                  name="role"
+                  className="w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-green-500"
+                >
+                  <option value="">Select Role</option>
+                  {roles.map((role, index) => (
+                    <option key={index} value={role}>
+                      {role}
+                    </option>
+                  ))}
+                </select>
+                <p className="text-red-600 text-[16px] font-normal">{err}</p>
+                <button className="w-full bg-blue-500 text-white rounded-md px-2 py-1">
+                  Submit
+                </button>
+              </form>
             </div>
           </div>
         </div>
       </div>
-      <ToastContainer style={{width:"40%"}}  />
+      <ToastContainer style={{ width: "40%" }} />
     </>
   );
 }
