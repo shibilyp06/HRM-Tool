@@ -32,6 +32,7 @@ function AuthGuard() {
         <div>
           {" "}
           <Outlet />
+        
         </div>
       ) : (
         navigate("/common/login")

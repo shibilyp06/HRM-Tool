@@ -35,7 +35,7 @@ function Home() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {/* Attendance Section */}
         <div className="bg-blue-100 shadow-md rounded-md p-6 transition duration-300 ease-in-out transform hover:scale-105">
-          <h2 className="text-lg font-semibold text-blue-700 mb-4">Current Attendance</h2>
+          <h2 className="text-lg font-semibold text-blue-700 mb-4">Current Staff Attendance</h2>
           <ul>
             {attendanceData.map((item, index) => (
               <li key={index} className="flex justify-between">

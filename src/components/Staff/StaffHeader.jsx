@@ -33,8 +33,9 @@ function StaffHeader() {
             <Link to="/staff/Home">
               <li className="font-semibold text-gray-700">Home</li>
             </Link>
-
-            <li className="font-semibold text-gray-700">Articles</li>
+           <Link to="/staff/addEvents">
+            <li className="font-semibold text-gray-700">Add events</li>
+           </Link>
             <Link to={"/staff/studentInfo"}>
               {" "}
               <li className="font-semibold text-gray-700">Student</li>
