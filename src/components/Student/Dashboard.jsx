@@ -5,7 +5,7 @@ import axiosInstance from "../../api/axios";
 import useRazorpay from "react-razorpay";
 import { Link } from "react-router-dom";
 // importing  Toastify
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StudentChatPage from "../../pages/Student/StudentChatPage";
 import AttentdancePage from "../../pages/Student/AttentdancePage";
@@ -185,7 +185,6 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <ToastContainer style={{ width: "40%" }} />
     </>
   );
 }

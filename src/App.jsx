@@ -4,6 +4,7 @@ import CommonRouter from "./router/CommonRouter";
 import AdminRouter from "./router/AdminRouter";
 import StaffRouter from "./router/StaffRouter";
 import StudentRouter from "./router/StudentRouter";
+import { ToastContainer } from "react-toastify";
 // import ProtectedRoute from "./components/Common/ProtectedRoute";
 
 function App() {
@@ -15,7 +16,9 @@ function App() {
             <Route path="/admin/*" element={<AdminRouter />}></Route>
             <Route path="/staff/*" element={<StaffRouter />}></Route>
             <Route path="/student/*" element={<StudentRouter />}></Route>
+
         </Routes>
+            <ToastContainer />
       </BrowserRouter>
     </>
   );

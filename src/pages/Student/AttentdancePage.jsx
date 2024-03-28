@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import axiosInstance from "../../api/axios";
 // importing  Toastify
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
@@ -85,7 +85,6 @@ function AttentdancePage() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <ToastContainer style={{ width: "40%" }} />
       {capturedPhoto ? (
         <div className="relative">
           {location && (

@@ -1,204 +1,77 @@
-import React, { useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React from "react";
 
 function Home() {
-  useEffect(() => {
-    toast.success("Welcome admin");
-  }, []);
+  // Dummy data for demonstration purposes
+  const attendanceData = [
+    { title: "Presents", attendance: 85 },
+    { title: "Absents", attendance: 9 },
+    { title: "Total", attendance: 94 },
+    // Add more data as needed
+  ];
+
+  const upcomingEvents = [
+    { date: "2024-04-05", event: "Annual Sports Day" },
+    { date: "2024-04-15", event: "Science Exhibition" },
+    // Add more events as needed
+  ];
+
+  const announcements = [
+    {
+      title: "New Library Hours",
+      description: "Updated library hours from next week. Please take note.",
+    },
+    {
+      title: "Exam Schedule",
+      description:
+        "Final exam schedule for this semester has been released. Check your email for details.",
+    },
+    // Add more announcements as needed
+  ];
+
   return (
-    <>
-      <link
-        rel="stylesheet"
-        href="https://cdn.tailgrids.com/tailgrids-fallback.css"
-      />
-      <section className="">
-        <div className="container">
-          <div className="flex flex-wrap justify-center -mx-4">
-            <div className="w-full px-4">
-              <div className="text-center mx-auto mb-[60px] lg:mb-20 max-w-[510px]">
-                <h2
-                  className="
-                  font-bold
-                  text-3xl
-                  sm:text-4xl
-                  md:text-[40px]
-                  text-dark
-                  mb-4
-                  "
-                >
-                  Our Recent News
-                </h2>
-                <p className="text-base text-body-color">
-                  There are many variations of passages of Lorem Ipsum available
-                  but the majority have suffered alteration in some form.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-4">
-            <div className="w-full md:w-1/2 lg:w-1/3 px-4">
-              <div className="max-w-[370px] mx-auto mb-10">
-                <div className="rounded overflow-hidden mb-8">
-                  {}
-                  <img
-                    src="https://cdn.tailgrids.com/1.0/assets/images/blogs/blog-01/image-01.jpg"
-                    alt="image"
-                    className="w-full"
-                  />
-                </div>
-                <div>
-                  <span
-                    className="
-                     bg-primary
-                     rounded
-                     inline-block
-                     text-center
-                     py-1
-                     px-4
-                     text-xs
-                     leading-loose
-                     font-semibold
-                     text-white
-                     mb-5
-                     "
-                  >
-                    Dec 22, 2023
-                  </span>
-                  <h3>
-                    <a
-                      href="javascript:void(0)"
-                      className="
-                        font-semibold
-                        text-xl
-                        sm:text-2xl
-                        lg:text-xl
-                        xl:text-2xl
-                        mb-4
-                        inline-block
-                        text-dark
-                        hover:text-primary
-                        "
-                    >
-                      Meet AutoManage, the best AI management tools
-                    </a>
-                  </h3>
-                  <p className="text-base text-body-color">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 px-4">
-              <div className="max-w-[370px] mx-auto mb-10">
-                <div className="rounded overflow-hidden mb-8">
-                  <img
-                    src="https://cdn.tailgrids.com/1.0/assets/images/blogs/blog-01/image-02.jpg"
-                    alt="image"
-                    className="w-full"
-                  />
-                </div>
-                <div>
-                  <span
-                    className="
-                     bg-primary
-                     rounded
-                     inline-block
-                     text-center
-                     py-1
-                     px-4
-                     text-xs
-                     leading-loose
-                     font-semibold
-                     text-white
-                     mb-5
-                     "
-                  >
-                    Mar 15, 2023
-                  </span>
-                  <h3>
-                    <a
-                      href="javascript:void(0)"
-                      className="
-                        font-semibold
-                        text-xl
-                        sm:text-2xl
-                        lg:text-xl
-                        xl:text-2xl
-                        mb-4
-                        inline-block
-                        text-dark
-                        hover:text-primary
-                        "
-                    >
-                      How to earn more money as a wellness coach
-                    </a>
-                  </h3>
-                  <p className="text-base text-body-color">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 px-4">
-              <div className="max-w-[370px] mx-auto mb-10">
-                <div className="rounded overflow-hidden mb-8">
-                  <img
-                    src="https://cdn.tailgrids.com/1.0/assets/images/blogs/blog-01/image-03.jpg"
-                    alt="image"
-                    className="w-full"
-                  />
-                </div>
-                <div>
-                  <span
-                    className="
-                     bg-primary
-                     rounded
-                     inline-block
-                     text-center
-                     py-1
-                     px-4
-                     text-xs
-                     leading-loose
-                     font-semibold
-                     text-white
-                     mb-5
-                     "
-                  >
-                    Jan 05, 2023
-                  </span>
-                  <h3>
-                    <a
-                      href="javascript:void(0)"
-                      className="
-                        font-semibold
-                        text-xl
-                        sm:text-2xl
-                        lg:text-xl
-                        xl:text-2xl
-                        mb-4
-                        inline-block
-                        text-dark
-                        hover:text-primary
-                        "
-                    >
-                      The no-fuss guide to upselling and cross selling
-                    </a>
-                  </h3>
-                  <p className="text-base text-body-color">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div className="container mx-auto py-8">
+      <h1 className="text-3xl font-semibold text-center text-blue-600 mb-6">Admin Dashboard</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Attendance Section */}
+        <div className="bg-blue-100 shadow-md rounded-md p-6 transition duration-300 ease-in-out transform hover:scale-105">
+          <h2 className="text-lg font-semibold text-blue-700 mb-4">Current Attendance</h2>
+          <ul>
+            {attendanceData.map((item, index) => (
+              <li key={index} className="flex justify-between">
+                <span className="text-gray-600">{item.title}</span>
+                <span className="text-blue-700">{item.attendance}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-      </section>
-      <ToastContainer style={{ width: "40%" }} />
-    </>
+
+        {/* Upcoming Events Section */}
+        <div className="bg-green-100 shadow-md rounded-md p-6 transition duration-300 ease-in-out transform hover:scale-105">
+          <h2 className="text-lg font-semibold text-green-700 mb-4">Upcoming Events</h2>
+          <ul>
+            {upcomingEvents.map((item, index) => (
+              <li key={index} className="mb-2">
+                <span className="text-gray-600">{item.date}</span>: <span className="text-green-700">{item.event}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Announcements Section */}
+        <div className="bg-yellow-100 shadow-md rounded-md p-6 transition duration-300 ease-in-out transform hover:scale-105">
+          <h2 className="text-lg font-semibold text-yellow-700 mb-4">Announcements</h2>
+          <ul>
+            {announcements.map((item, index) => (
+              <li key={index} className="mb-4">
+                <h3 className="text-base font-semibold text-yellow-800 mb-2">{item.title}</h3>
+                <p className="text-gray-600">{item.description}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
   );
 }
 

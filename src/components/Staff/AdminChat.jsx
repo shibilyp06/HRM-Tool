@@ -13,14 +13,11 @@ function AdminChatPage() {
     const fetchUser = async () => {
       const response = await axiosInstance.put(`/admin/editStaff/${Id}`);
       const staff = response.data.editingStaff;
-      console.log(staff, "staff");
       setProfile(staff);
     };
     fetchUser();
     const socket = io("http://localhost:3000", { transports: ["websocket"] });
-    socket.on("sendMessage", (message) => {
-      console.log(message, "ehti mone");
-    });
+    socket.on("sendMessage", (message) => {});
     setSocket(socket);
   }, []);
   useEffect(() => {
