@@ -6,7 +6,7 @@ import AdminChatPage from "../components/Staff/AdminChat.jsx";
 import EditStudent from "../components/Staff/EditStudent.jsx";
 import ChatStaff from "../pages/Staff/ChatStaff.jsx";
 import AddCoursePage from "../pages/Staff/AddCoursePage.jsx";
-import AddEvents from "../components/Staff/AddEvents.jsx";
+import EventPage from "../pages/Staff/EventPage.jsx";
 
 function StaffRouter() {
   return (
@@ -20,7 +20,7 @@ function StaffRouter() {
         <Route path="/adminChat" element={<AdminChatPage />}></Route>
         <Route path="/editStudent/:Id" element={<EditStudent />}></Route>
         <Route path="/chat" element={<ChatStaff />}></Route>
-        <Route path="/addEvents" element={<AddEvents/>}></Route>
+        <Route path="/addEvents" element={<EventPage />}></Route>
         {/* </Route> */}
       </Routes>
     </>

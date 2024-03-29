@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StudentChatPage from "../../pages/Student/StudentChatPage";
 import AttentdancePage from "../../pages/Student/AttentdancePage";
+import Home from "../../pages/Student/Home";
 
 function Dashboard() {
   const [order, setOrder] = useState(null);
@@ -70,11 +71,16 @@ function Dashboard() {
   };
   return (
     <>
-      <div className="bg-gray-900 min-h-screen flex items-center justify-center">
-        <div className="bg-gray-800  flex-1 flex flex-col space-y-5 lg:space-y-0 lg:flex-row lg:space-x-10 max-w-6xl sm:p-6 sm:my-2 sm:mx-4 sm:rounded-2xl">
-          <div className="bg-orange-900 px-2 lg:px-4 py-2 lg:py-10 sm:rounded-xl flex lg:flex-col justify-between">
+      <div className="bg-gray-900 min-h-screen  flex items-center justify-center">
+        <div className="bg-gray-300  flex-1  flex flex-col space-y-5 lg:space-y-0 lg:flex-row lg:space-x-10 sm:p-4 sm:py-10 sm:my-2 sm:mx-20 sm:rounded-2xl">
+          <div className="bg-orange-900 px-2 lg:px-4 py-2 lg:py-36 sm:rounded-xl flex lg:flex-col justify-between">
             <nav className="flex items-center flex-row space-x-2 lg:space-x-0 lg:flex-col lg:space-y-2">
               <a
+                onClick={() => {
+                  setAttendancePage(false);
+                  setChatPage(false);
+                  setHomePage(true);
+                }}
                 className="text-white/50 p-4 inline-flex justify-center rounded-md hover:bg-gray-800 hover:text-white smooth-hover"
                 href="#"
               >
@@ -137,7 +143,7 @@ function Dashboard() {
               {/* Attentdance */}
               <a
                 onClick={() => {
-                  setChatPage(false)
+                  setChatPage(false);
                   setAttendancePage(true);
                 }}
                 className="hover:bg-gray-800 text-white p-4 inline-flex justify-center rounded-md"
@@ -177,8 +183,8 @@ function Dashboard() {
               </a>
             </nav>
           </div>
-          <div className="bg-yellow-900 w-full rounded-md">
-            {homePage && <Dashboard />}
+          <div className="bg-yellow-900 w-full rounded-md flex justify-center items-center">
+            {homePage && <Home />}
             {chatPage && <StudentChatPage />}
             {/* {paymentPage && } */}
             {attendancePage && <AttentdancePage />}
