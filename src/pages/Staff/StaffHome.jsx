@@ -4,7 +4,7 @@ import StaffPage from "../../components/Staff/StaffPage";
 function StaffHome() {
   return (
     <>
-      <div className="w-screen">
+      <div >
         <div>
           <StaffHeader />
         </div>

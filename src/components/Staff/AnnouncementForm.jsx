@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-
+import { useState } from "react";
+import axiosInstance from "../../api/axios";
 const AnnouncementForm = () => {
   const [announcement, setAnnouncement] = useState({
     title: "",
     content: "",
+    expiryTime: "",
   });
 
   const handleChange = (e) => {
@@ -11,12 +12,18 @@ const AnnouncementForm = () => {
     setAnnouncement({ ...announcement, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you can handle form submission, e.g., send data to backend
-    console.log("Submitted:", announcement);
-    // Clear form fields after submission
-    setAnnouncement({ title: "", content: "" });
+
+    try {
+      const response = await axiosInstance.post(
+        "/staff/addAnnouncement",
+        announcement
+      );
+    } catch (err) {
+      console.error(err);
+    }
+    setAnnouncement({ title: "", content: "", expiryTime: "" });
   };
 
   return (
@@ -57,6 +64,23 @@ const AnnouncementForm = () => {
             rows="5"
             required
           ></textarea>
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="expiryTime"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Expiry Time:
+          </label>
+          <input
+            type="datetime-local"
+            id="expiryTime"
+            name="expiryTime"
+            value={announcement.expiryTime}
+            onChange={handleChange}
+            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required
+          />
         </div>
         <div className="flex justify-center">
           <button

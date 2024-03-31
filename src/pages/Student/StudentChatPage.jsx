@@ -24,6 +24,7 @@ function StudentChatPage() {
       const socketIo = io("http://localhost:3000", {
         transports: ["websocket"],
       });
+      console.log(socketIo, " socke");
       async function fetchUser() {
         // fetching staff from database
         const response = await axiosInstance.get("/admin/getStaff");

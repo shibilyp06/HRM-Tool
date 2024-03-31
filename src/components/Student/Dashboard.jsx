@@ -15,7 +15,7 @@ function Dashboard() {
   const [order, setOrder] = useState(null);
   const [Razorpay] = useRazorpay();
   const [student, setStudent] = useState(null);
-  const [homePage, setHomePage] = useState(false);
+  const [homePage, setHomePage] = useState(true);
   const [chatPage, setChatPage] = useState(false);
   const [paymentPage, setPaymentPage] = useState(false);
   const [attendancePage, setAttendancePage] = useState(false);
@@ -79,7 +79,7 @@ function Dashboard() {
                 onClick={() => {
                   setAttendancePage(false);
                   setChatPage(false);
-                  setHomePage(true);
+                  setHomePage(true)
                 }}
                 className="text-white/50 p-4 inline-flex justify-center rounded-md hover:bg-gray-800 hover:text-white smooth-hover"
                 href="#"
@@ -99,6 +99,7 @@ function Dashboard() {
                 onClick={() => {
                   setAttendancePage(false);
                   setChatPage(true);
+                  setHomePage(false)
                 }}
                 className="hover:bg-gray-800 text-white p-4 inline-flex justify-center rounded-md"
                 href="#"
@@ -145,6 +146,7 @@ function Dashboard() {
                 onClick={() => {
                   setChatPage(false);
                   setAttendancePage(true);
+                  setHomePage(false)
                 }}
                 className="hover:bg-gray-800 text-white p-4 inline-flex justify-center rounded-md"
                 href="#"
