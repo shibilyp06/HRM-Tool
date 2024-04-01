@@ -3,18 +3,35 @@ import { Link } from "react-router-dom";
 
 function AdminHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const toggleMenu = () => {
     setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);
   };
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
   return (
-    <header className="bg-gray-800 py-4">
+    <header className="bg-gray-800 py-4 ">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <Link to="/admin/Home" className="text-white text-xl font-semibold hover:text-gray-300">
+          <Link
+            to="/admin/Home"
+            className="text-white text-xl font-semibold hover:text-gray-300"
+          >
             Attender
           </Link>
+        </div>
+        <div className="flex items-center">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            className="px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none"
+          />
         </div>
         <div className="md:hidden  flex items-center">
           <button

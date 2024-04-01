@@ -42,7 +42,7 @@ const StudentsList = () => {
   }, [student]);
 
   return (
-    <div className="container mx-auto ">
+    <div className="container mx-auto bg-gray-400 h-screen   ">
       {student && <StudentCard data={student} closeModal={closeModal} />}
 
       <h2 className="text-2xl font-bold mb-4">Student List</h2>

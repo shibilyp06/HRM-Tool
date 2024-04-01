@@ -7,7 +7,7 @@ function ShowStudentPage() {
     <div>
         <AdminHeader/>
     </div>
-    <div>
+    <div className="bg-gray-400">
         <StudentsList/>
     </div>
     </>

@@ -34,7 +34,7 @@ const StaffList = () => {
   }
 
   return (
-    <div className="container mx-auto ">
+    <div className="container mx-auto bg-gray-400 w-screen h-screen ">
     {staff && <ProfileCard data={staff} closeModal={closeModal} />}
 
       <h2 className="text-2xl font-bold mb-4">Staff List</h2>

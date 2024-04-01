@@ -5,7 +5,10 @@ function ShowStaff() {
   return (
     <>
         <AdminHeader/>
+        <div className="bg-gray-400">
+
         <StaffList/>
+        </div>
     </>
   )
 }
