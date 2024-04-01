@@ -50,7 +50,7 @@ const AddStaffPage = () => {
   };
   return (
     <div className="bg-black text-white min-h-screen flex flex-col justify-center items-center">
-      <h1 className="text-3xl font-bold mb-8">Update Staff</h1>
+      <h1 className="text-3xl font-bold mb-8">Add Staff</h1>
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-96 h-auto">
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="flex flex-col">
@@ -130,7 +130,7 @@ const AddStaffPage = () => {
               onSubmit={handleSubmit}
               className="px-6 py-2 bg-blue-500 hover:bg-blue-600 rounded-md transition-colors duration-300"
             >
-              Update
+              Add Staff
             </button>
             <button
               className="px-6 py-2 bg-gray-600 hover:bg-gray-700 rounded-md transition-colors duration-300"

@@ -5,7 +5,7 @@ import Home from "../../components/Admin/Home";
 function AdminHome() {
   return (
     <>
-      <div><AdminHeader/></div>
+      <div className="w-screen"><AdminHeader/></div>
       <div><Home/></div>
 
     </>

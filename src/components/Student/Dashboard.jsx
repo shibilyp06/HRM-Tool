@@ -25,7 +25,7 @@ function Dashboard() {
       const response = await axiosInstance.get("/student/getCurrentStudent");
       const student = response.data.student;
       setStudent(student);
-      // toast.success(`Welcome ${student.name}`)
+      toast.success(`Welcome ${student.name}`)
     }
     fetchStudent();
   }, []);

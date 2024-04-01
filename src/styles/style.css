@@ -1,0 +1,10 @@
+.attended::after {
+    content: "\u2713"; /* Unicode character for tick mark */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem; /* Adjust size as needed */
+    color: green; /* Color of the tick mark */
+  }
+  
