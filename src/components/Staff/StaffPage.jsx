@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
 import MyApp from "../Common/Calender";
@@ -13,6 +14,15 @@ function StaffPage() {
         const { events, announcements } = response.data;
         setEvents(events);
         setAnnouncements(announcements);
+
+        announcements.map((item) => {
+          const expiryDate = new Date(item.expiryTime);
+          const today = new Date();
+          if (expiryDate < today) {
+            handleDeleteEvent(item._id); // You can handle deletion here if needed
+            return null; // Skip rendering if the announcement has expired
+          }
+        });
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -25,7 +35,8 @@ function StaffPage() {
     try {
       console.log(Id);
       const response = await axiosInstance.delete(`/staff/deleteEvent/${Id}`);
-      setEvents(response.data.events)
+      setEvents(response.data.events);
+      setAnnouncements(response.data.announcements)
     } catch (err) {
       console.error(err);
     }
@@ -96,14 +107,16 @@ function StaffPage() {
             Announcements
           </h2>
           <ul>
-            {announcements.map((item, index) => (
-              <li key={index} className="mb-4">
-                <h3 className="text-base font-semibold text-yellow-800 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-gray-600">{item.content}</p>
-              </li>
-            ))}
+            {announcements.map((item, index) => {
+              return (
+                <li key={index} className="mb-4">
+                  <h3 className="text-base font-semibold text-yellow-800 mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600">{item.content}</p>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
