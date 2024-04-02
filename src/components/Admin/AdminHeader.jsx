@@ -3,12 +3,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axiosInstance from "../../api/axios";
 import "../../index.css";
+import ProfileCard from "./ProfileCard";
 
 function AdminHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [items, setItems] = useState([]);
-
+  const [modal, setModal] = useState(false);
+  // fetching serch data from backend
   const fetchSearchData = async () => {
     const response = await axiosInstance.get("/searchQuery", {
       params: { searchQuery },
@@ -16,11 +18,11 @@ function AdminHeader() {
     const { allStaff, allStudent } = response.data;
     setItems([...allStaff, ...allStudent]);
   };
-
+  // toggling menu
   const toggleMenu = () => {
     setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);
   };
-
+  //  fetching data and search field data
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
     fetchSearchData();
@@ -29,6 +31,9 @@ function AdminHeader() {
   const filteredItems = items.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+  const showModal = () => {
+    setModal(true);
+  };
 
   return (
     <header className="bg-gray-800 py-4">
@@ -41,24 +46,30 @@ function AdminHeader() {
             Attender
           </Link>
         </div>
-        <div className="search-container">
+        <div className="search-container relative">
           <input
             type="text"
             value={searchQuery}
             onChange={handleSearchChange}
             placeholder="Search..."
-            className="search-input"
+            className="search-input px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-opacity-50 w-full"
           />
-          <ul className="search-results">
+          <ul className="search-results absolute top-full left-0 w-full custom-scrollbar rounded-md shadow-md bg-white overflow-y-auto max-h-60 z-50">
             {searchQuery &&
               filteredItems.map((item) => (
-                <li key={item.id} className="search-item">
-                  <p> {item.name} : {item.role} </p>
-
+                <li
+                  key={item.id}
+                  className="search-item py-2 px-3 hover:bg-gray-100 cursor-pointer border-b border-gray-200"
+                >
+                  <p onClick={showModal}>
+                    <span className="font-bold">{item.name}</span> : {item.role}
+                    {modal && <ProfileCard />}
+                  </p>
                 </li>
               ))}
           </ul>
         </div>
+
         <div className="md:hidden  flex items-center">
           <button
             onClick={toggleMenu}

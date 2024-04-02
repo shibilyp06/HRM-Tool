@@ -3,7 +3,7 @@ import axios from "axios";
 const instance = axios.create({
   baseURL: "http://localhost:5000",
 
-  // 51.20.35.150  MY EC2 IP 
+  // 51.20.35.150  MY EC2 IP
 });
 instance.interceptors.request.use(
   (config) => {

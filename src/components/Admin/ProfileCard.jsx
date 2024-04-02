@@ -49,7 +49,7 @@ const ProfileCard = ({ data, closeModal }) => {
             <button
               className="absolute top-0 left-0 mt-2 ml-2 text-white hover:text-red-500"
               onClick={() => {
-                deleteStaff(data._id);
+                deleteStaff(data?._id);
               }}
             >
               <svg
@@ -69,23 +69,23 @@ const ProfileCard = ({ data, closeModal }) => {
             </button>
             <img
               className="rounded-full border w-60 h-52 border-teal-500 p-1 mx-auto"
-              src={data.imgURL}
+              src={data?.imgURL}
               alt="user"
             />
             <h3 className="text-xl font-semibold mt-2 uppercase">
-              {data.name}{" "}
+              {data?.name}{" "}
             </h3>
-            <h6 className="text-sm uppercase mt-1">{data.position} </h6>
+            <h6 className="text-sm uppercase mt-1">{data?.position} </h6>
 
             <div className="mt-4">
-              <Link to={`/admin/StaffChat/${data._id}`}>
+              <Link to={`/admin/StaffChat/${data?._id}`}>
               <button className="bg-teal-500 hover:bg-teal-600 text-gray-900 font-semibold py-2 px-4 rounded mr-2">
                 Message
               </button>
               </Link>
               <button
                 onClick={() => {
-                  editStaff(data._id);
+                  editStaff(data?._id);
                 }}
                 className="bg-transparent text-teal-500 font-semibold py-2 px-4 rounded border border-teal-500"
               >
@@ -96,7 +96,7 @@ const ProfileCard = ({ data, closeModal }) => {
               <h6 className="text-sm font-semibold uppercase">Roles</h6>
               <ul className="mt-2">
                 {
-                  data.roles.map((task,index)=>{
+                  data?.roles.map((task,index)=>{
 
                     <li key={index} className="inline-block bg-gray-800 border border-gray-700 rounded px-3 py-1 text-xs font-semibold mr-2 mb-2">
                        {task[index]}
