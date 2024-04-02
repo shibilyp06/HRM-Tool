@@ -4,12 +4,15 @@ const adminSlice = createSlice({
   name: "auth",
   initialState: {
     token: null,
+    
   },
   reducers: {
     setToken(state, action) {
       state.token = action.payload;
       console.log(state.token);
+      
     },
+    
   },
 });
 export const { setToken } = adminSlice.actions;

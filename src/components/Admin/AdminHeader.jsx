@@ -1,10 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import axiosInstance from "../../api/axios";
 function AdminHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [items, setItems] = useState([]);
 
+  useEffect(() => {
+    const fetchSearchData = async () => {
+      const response = await axiosInstance.get("/serchQuerry");
+      const { allStaff, allStudent } = response.data;
+      console.log(allStaff, allStudent);
+      setItems([...allStaff, ...allStudent]);
+      console.log(searchQuery, " : search querry");
+    };
+    fetchSearchData();
+  }, []);
   const toggleMenu = () => {
     setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);
   };
@@ -12,6 +23,9 @@ function AdminHeader() {
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
+  const filteredItems = items.filter(item => 
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <header className="bg-gray-800 py-4 ">
@@ -24,14 +38,18 @@ function AdminHeader() {
             Attender
           </Link>
         </div>
-        <div className="flex items-center">
+        <div>
           <input
             type="text"
-            placeholder="Search..."
             value={searchQuery}
             onChange={handleSearchChange}
-            className="px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none"
+            placeholder="Search..."
           />
+          <ul>
+            { searchQuery && filteredItems.map((item) => (
+              <li key={item.id}>{item.name}</li>
+            ))}
+          </ul>
         </div>
         <div className="md:hidden  flex items-center">
           <button

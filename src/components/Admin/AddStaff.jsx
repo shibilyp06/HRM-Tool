@@ -24,9 +24,6 @@ const AddStaffPage = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formDatas.imgURL, " img");
-    console.log(formDatas.name, " name");
-
     const formData = new FormData();
     formData.append("name", formDatas.name);
     formData.append("email", formDatas.email);
