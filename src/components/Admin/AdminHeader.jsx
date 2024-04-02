@@ -1,34 +1,37 @@
-import { useEffect, useState } from "react";
+// AdminHeader.js
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import axiosInstance from "../../api/axios";
+import "../../index.css";
+
 function AdminHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [items, setItems] = useState([]);
 
-  useEffect(() => {
-    const fetchSearchData = async () => {
-      const response = await axiosInstance.get("/serchQuerry");
-      const { allStaff, allStudent } = response.data;
-      console.log(allStaff, allStudent);
-      setItems([...allStaff, ...allStudent]);
-      console.log(searchQuery, " : search querry");
-    };
-    fetchSearchData();
-  }, []);
+  const fetchSearchData = async () => {
+    const response = await axiosInstance.get("/searchQuery", {
+      params: { searchQuery },
+    });
+    const { allStaff, allStudent } = response.data;
+    setItems([...allStaff, ...allStudent]);
+  };
+
   const toggleMenu = () => {
     setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen);
   };
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
+    fetchSearchData();
   };
-  const filteredItems = items.filter(item => 
+
+  const filteredItems = items.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
-    <header className="bg-gray-800 py-4 ">
+    <header className="bg-gray-800 py-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <Link
@@ -38,17 +41,22 @@ function AdminHeader() {
             Attender
           </Link>
         </div>
-        <div>
+        <div className="search-container">
           <input
             type="text"
             value={searchQuery}
             onChange={handleSearchChange}
             placeholder="Search..."
+            className="search-input"
           />
-          <ul>
-            { searchQuery && filteredItems.map((item) => (
-              <li key={item.id}>{item.name}</li>
-            ))}
+          <ul className="search-results">
+            {searchQuery &&
+              filteredItems.map((item) => (
+                <li key={item.id} className="search-item">
+                  <p> {item.name} : {item.role} </p>
+
+                </li>
+              ))}
           </ul>
         </div>
         <div className="md:hidden  flex items-center">
